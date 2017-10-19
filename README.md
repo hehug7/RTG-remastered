@@ -1,11 +1,15 @@
 # RTG_remastered
 
 Hvordan spille spillet:
-Last ned zip filen og gå inn i templatemappen. Der vil du se eldre versjoner av det gamle spillet og
-RTG_remastered. Det er den HTML-filen du vil kjøre. Velg åpne i => google chrome.
+1. Last ned zip filen under "clone or download"
+2. Gå inn i zip filen uten å pakke den ut.
+3. Gå inn i `template` mappen. Der vil du se eldre versjoner av det gamle spillet og det nye.
+4. For å spille nyeste versjon: dobbelklikk på `Retrieve_lost_gold_remastered.html`
+5. Sørg for at denne åpnes av *google chrome*
+6. Dette gjør du ved å høyreklikke og åpne i => chrome.
 Når du har lastet inn siden vil du kunne spille selv om internettet forsvinner.
 
-"Retrieve the gold" er et spill som ble laget på videregående i forbindelse med utdanning.
+Retrieve the gold er et spill som ble laget på videregående i forbindelse med utdanning.
 Da jeg tilegnet mer kunnskap innen webteknologi og oppdaget at nye teknologier innen css, javascript
 og html dukket opp, bestemte jeg meg for å lage en remastered versjon av det gamle spillet.
 
