@@ -31,6 +31,7 @@
 
     FIXING:
 
+        TODO fikse onclick to start (not on the text)
         TODO overlapping med obstacle og mus
     Fikse overlapping med powerups, obstacle og coins (z-index)
 
@@ -43,6 +44,15 @@
     powerup (insertbefore coin)
     coin
  */
+
+/* gamemodes:
+    0: startup menu,
+    1: tutorial
+    2: game
+*/
+
+let modes = [0, 1, 2];
+let mode = modes[0];
 
 // game map
 let map = document.getElementById("map");
@@ -77,23 +87,14 @@ let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
 
 // Audio elements
+let sfx = (mode === modes[2]);
+let music = (mode === modes[2]);
+
 let coinSound = setAudioElem('coinsound.mp3', 'sfx');
 let gameOverSound = setAudioElem('deadSound.mp3', 'sfx');
 let powerUpSound = setAudioElem('powerup.mp3', 'sfx');
 let winSound = setAudioElem('winSound.mp3', 'sfx');
 let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
-
-/* gamemodes:
-    0: startup menu,
-    1: tutorial
-    2: game
-*/
-
-let modes = [0, 1, 2];
-
-let mode = modes[0];
-let sfx = (mode === modes[2]);
-let music = (mode === modes[2]);
 
 function initGame() {
     // creates powerups
@@ -122,7 +123,9 @@ function initGame() {
     powerUpSpawner = setInterval(spawnPowerUp, pusi*1000);
 
     // Audio
-    playAudio(themeSong);
+    if (music) {
+        playAudio(themeSong);
+    }
 }
 
 function exitGame() {
@@ -139,12 +142,16 @@ function exitGame() {
     clearInterval(powerUpSpawner);
 
     // Audio
-    playAudio(gameOverSound);
+    if (sfx) {
+        playAudio(gameOverSound);
+    }
     stopAudio(themeSong);
 }
 
 function winGame() {
-    playAudio(winSound);
+    if (sfx) {
+        playAudio(winSound);
+    }
     exitGame();
     title1.innerHTML = "GRATULERER DU VANT!";
     title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
@@ -273,7 +280,9 @@ function activatePowerUp(evt) {
             break;
     }
 
-    playAudio(powerUpSound);
+    if (sfx) {
+        playAudio(powerUpSound);
+    }
 
     gMap.removeChild(touchedPowup)
 
