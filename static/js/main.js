@@ -52,7 +52,7 @@ let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
 
 // Audio elements
-let coinSound = setAudioElem('../audio/sfx/coinsound.mp3');
+let coinSound = setAudioElem('coinsound.mp3');
 let gameOverSound;
 let pickupSound;
 let powerupSound;
@@ -267,6 +267,7 @@ function coinTouched(evt) {
     createObstacle();
     changeCoinPos(evt);
     addAndUpdateScore(1);
+    coinSound.play();
 }
 
 // Endrer posisjonen til mynten
@@ -336,6 +337,8 @@ function setAudioElem(filename) {
 }
 
 function playAudio(elem) {
+    elem.pause();
+    elem.currentTime = 0;
     elem.play();
 }
 
