@@ -15,5 +15,6 @@ Målet med prosjektet er å lage et fritidsspill som du kan spille på pc selv o
 
 Disclaimer:
 
-Jeg eier ingen av lydeffektene.
+Jeg eier ingen av lydeffektene eller themesongen.
+
 Themesong: Hyper street fighter II - Guile's theme
