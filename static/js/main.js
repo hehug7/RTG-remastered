@@ -48,11 +48,11 @@
 
 /* gamemodes:
     0: startup menu,
-    1: tutorial
-    2: game
+    1: game
+    2: gamemode??
 */
 
-let modes = [0, 1, 2];
+let modes = [0, 1];
 let mode = modes[0];
 
 // game map
@@ -92,7 +92,7 @@ let sfx = true;
 let music = true;
 
 let coinSound = setAudioElem('coinsound.mp3', 'sfx');
-let gameOverSound = setAudioElem('deadSound.mp3', 'sfx');
+let gameOverSound = setAudioElem('gameover.mp3', 'sfx');
 let powerUpSound = setAudioElem('powerup.mp3', 'sfx');
 let winSound = setAudioElem('winSound.mp3', 'sfx');
 let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
@@ -101,7 +101,7 @@ function initGame() {
     // creates powerups
     createPowerUps();
 
-    mode = modes[2];
+    mode = modes[1];
 
     // resets map
     gMap.innerHTML = "";
@@ -130,9 +130,6 @@ function initGame() {
 }
 
 function exitGame() {
-    // game is off
-    mode = modes[0];
-
     // Vis titler
     titles.setAttribute("class", "show");
 
@@ -143,10 +140,14 @@ function exitGame() {
     clearInterval(powerUpSpawner);
 
     // Audio
-    if (sfx) {
+    if (sfx && mode === 1) {
+        gameOverSound.currentTime = 2;
         playAudio(gameOverSound);
     }
     stopAudio(themeSong);
+
+    // game is off
+    mode = modes[0];
 }
 
 function winGame() {
@@ -174,11 +175,18 @@ title2.onclick = startGame;
 map.onmouseleave = exitGame;
 
 function changeSFX(sfxBtn) {
+    stopAudio(gameOverSound);
+    stopAudio(winSound);
+    stopAudio(powerUpSound);
+    stopAudio(coinSound);
+
     sfx ? sfxBtn.innerHTML = "SFX: OFF" : sfxBtn.innerHTML = "SFX: ON";
     sfx = !sfx;
 }
 
 function changeMusic(musicBtn) {
+    stopAudio(themeSong);
+
     music ? musicBtn.innerHTML = "Music: OFF" : musicBtn.innerHTML = "Music: ON";
     music = !music;
 }
@@ -321,7 +329,10 @@ function coinTouched(evt) {
     createObstacle(evt);
     changeCoinPos(evt);
     addAndUpdateScore(1);
-    playAudio(coinSound);
+
+    if (sfx) {
+        playAudio(coinSound);
+    }
 }
 
 // Endrer posisjonen til mynten
