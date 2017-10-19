@@ -71,15 +71,21 @@ let nickInp = document.getElementById("nickInp");
 
 // Status
 let antCoins = document.getElementById("antCoins");
+let antLives = document.getElementById("antLives");
+
 let collectedCoins = 0;
 let winScore = 100;
+let lives = 3;
 
-// PowerUp Spawn Interval
-let pusi = 5;
+antCoins.innerHTML = 0;
+antLives.innerHTML = lives;
 
 // Radius
 let obstacleRadius = 50;
 let coinRadius = 17;
+
+// PowerUp Spawn Interval
+let pusi = 5;
 
 // powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink]
 let powerUpArray = [];
@@ -105,6 +111,10 @@ function initGame() {
 
     // resets map
     gMap.innerHTML = "";
+
+    // Reset radius
+    obstacleRadius = 50;
+    coinRadius = 17;
 
     // resets score
     collectedCoins = 0;
@@ -419,4 +429,10 @@ function playAudio(elem) {
 function stopAudio(elem) {
     elem.pause();
     elem.currentTime = 0;
+}
+
+function
+
+function updateHighscore() {
+
 }
