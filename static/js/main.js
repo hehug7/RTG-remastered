@@ -126,6 +126,11 @@ function isDuplicateName(name) {
     return false;
 }
 
+function addAndUpdateScore(amount) {
+    let sum = collectedCoins += amount;
+    sum < 0 ? antCoins.innerHTML = 0 : antCoins.innerHTML = sum;
+}
+
 regBtn.onclick = function(event) {
     event.preventDefault();
 
@@ -190,6 +195,24 @@ function activatePowerUp(evt) {
     let touchedPowup = evt.target;
     let idx = powerUpColors.indexOf(touchedPowup.getAttribute("fill"));
 
+    // ["obstacle gets smaller", "coin gets bigger", "bonuscoins", "losing coins", "move coin"];
+    switch(idx) {
+        case 0:
+            obstacleRadius-= 3;
+            break;
+        case 1:
+            coinRadius += 2;
+            break;
+        case 2:
+            addAndUpdateScore(7);
+            break;
+        case 3:
+            addAndUpdateScore(-5);
+            break;
+        case 4:
+            changeCoinPos(evt);
+            break;
+    }
 
 
     gMap.removeChild(touchedPowup)
@@ -205,6 +228,7 @@ function createCoin() {
     coin.setAttribute("r", coinRadius);
     coin.setAttribute("stroke-width", "1.5");
     coin.setAttribute("stroke", "black");
+    coin.setAttribute("z-index", "200");
     resetCoin(coin);
     gMap.appendChild(coin);
 
@@ -213,7 +237,7 @@ function createCoin() {
 function coinTouched(evt) {
     createObstacle();
     changeCoinPos(evt);
-    antCoins.innerHTML = ++collectedCoins;
+    addAndUpdateScore(1);
 }
 
 // Endrer posisjonen til mynten
