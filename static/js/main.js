@@ -75,10 +75,8 @@ let antLives = document.getElementById("antLives");
 
 let collectedCoins = 0;
 let winScore = 100;
-let lives = 3;
-
-antCoins.innerHTML = 0;
-antLives.innerHTML = lives;
+let amountOfLives = 3;
+let lives;
 
 // Radius
 let obstacleRadius = 50;
@@ -102,6 +100,7 @@ let gameOverSound = setAudioElem('gameover.mp3', 'sfx');
 let powerUpSound = setAudioElem('powerup.mp3', 'sfx');
 let winSound = setAudioElem('winSound.mp3', 'sfx');
 let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
+let loseLifeSound = setAudioElem('lose_life.mp3', 'sfx');
 
 function initGame() {
     // creates powerups
@@ -116,17 +115,20 @@ function initGame() {
     obstacleRadius = 50;
     coinRadius = 17;
 
-    // resets score
+    // resets score and lives
     collectedCoins = 0;
     antCoins.innerHTML = collectedCoins;
+
+    lives = amountOfLives;
+    antLives.innerHTML = lives;
 
     // remove titles
     if (titles.className !== "hidden") {
         titles.setAttribute("class", "hidden");
     }
 
-    let coin = document.getElementById("coin");
-    if (coin === null) {
+    // create coin
+    if (document.getElementById("coin") === null) {
         createCoin();
     }
 
@@ -134,6 +136,7 @@ function initGame() {
     powerUpSpawner = setInterval(spawnPowerUp, pusi*1000);
 
     // Audio
+    stopAudio(gameOverSound);
     if (music) {
         playAudio(themeSong);
     }
@@ -402,7 +405,7 @@ function createObstacle(evt) {
     }
 
     let obs = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    obs.addEventListener("mouseover", exitGame);
+    obs.addEventListener("mouseover", loseLife);
     obs.setAttribute("x", xPos);
     obs.setAttribute("y", yPos);
     obs.setAttribute("fill", "#847d7d");
@@ -431,7 +434,21 @@ function stopAudio(elem) {
     elem.currentTime = 0;
 }
 
-function
+function loseLife() {
+    playAudio(loseLifeSound);
+
+    lives--;
+
+    if (lives < 0) {
+        lives = 0;
+    }
+
+    if (lives === 0) {
+        exitGame();
+    }
+
+    antLives.innerHTML = lives;
+}
 
 function updateHighscore() {
 
