@@ -30,7 +30,8 @@
             ++
 
     FIXING:
-
+        TODO fjerne høyreklikk
+        TODO fikse powerup text
         TODO fikse onclick to start (not on the text)
         TODO overlapping med obstacle og mus
     Fikse overlapping med powerups, obstacle og coins (z-index)
@@ -74,7 +75,7 @@ let collectedCoins = 0;
 let winScore = 100;
 
 // PowerUp Spawn Interval
-let pusi = 10;
+let pusi = 5;
 
 // Radius
 let obstacleRadius = 50;
@@ -270,7 +271,7 @@ function activatePowerUp(evt) {
             coinRadius += 2;
             break;
         case 2:
-            addAndUpdateScore(7);
+            addAndUpdateScore(3);
             break;
         case 3:
             addAndUpdateScore(-5);
@@ -313,7 +314,7 @@ function insertAfter(newNode, referenceNode) {
 }
 
 function coinTouched(evt) {
-    createObstacle();
+    createObstacle(evt);
     changeCoinPos(evt);
     addAndUpdateScore(1);
     coinSound.play();
@@ -364,9 +365,16 @@ function isOverlapping(evt, radius, coordx, coordy) {
     return (mouseY + radius + 2 <= coordy && mouseY - radius - 2 >= coordy);
 }
 
-function createObstacle() {
+function createObstacle(evt) {
     let xPos = getRandomPos(obstacleRadius/2);
     let yPos = getRandomPos(obstacleRadius/2);
+
+    // mouseX - offset + coinRadius + 2 <= rcx && mouseX - coinRadius - 2 >= rcx
+    // Checks for overlapping with mouse
+    while (isOverlapping(evt, obstacleRadius, xPos, yPos)) {
+        xPos = getRandomPos(obstacleRadius/2);
+        yPos = getRandomPos(obstacleRadius/2);
+    }
 
     let obs = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     obs.addEventListener("mouseover", exitGame);
