@@ -228,10 +228,19 @@ function createCoin() {
     coin.setAttribute("r", coinRadius);
     coin.setAttribute("stroke-width", "1.5");
     coin.setAttribute("stroke", "black");
-    coin.setAttribute("z-index", "200");
     resetCoin(coin);
-    gMap.appendChild(coin);
 
+    let amOfElem = gMap.children.length;
+    if (amOfElem === 0) {
+        gMap.appendChild(coin);
+    }
+
+    let refNode = gMap.childNodes[gMap.children.length-1];
+    insertAfter(coin, refNode);
+}
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 function coinTouched(evt) {
@@ -298,5 +307,20 @@ function createObstacle() {
     obs.setAttribute("width", obstacleRadius);
     obs.setAttribute("stroke-width", "3");
     obs.setAttribute("stroke", "#000000");
-    gMap.appendChild(obs);
+    // legger til i rekken bak coin slik at coin ligger over gray firkanter
+    gMap.insertBefore(obs, document.getElementById("coin"));
 }
+
+function setAudioElem(filename) {
+    return new Audio(filename);
+}
+
+function playAudio(elem) {
+    elem.play();
+}
+
+
+function stopAudio(elem) {
+    elem.pause();
+}
+
