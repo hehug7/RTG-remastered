@@ -88,8 +88,8 @@ let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
 
 // Audio elements
-let sfx = (mode === modes[2]);
-let music = (mode === modes[2]);
+let sfx = true;
+let music = true;
 
 let coinSound = setAudioElem('coinsound.mp3', 'sfx');
 let gameOverSound = setAudioElem('deadSound.mp3', 'sfx');
@@ -397,8 +397,7 @@ function setAudioElem(filename, type) {
 }
 
 function playAudio(elem) {
-    elem.pause();
-    elem.currentTime = 0;
+    stopAudio(elem);
     elem.play();
 }
 
