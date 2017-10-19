@@ -12,6 +12,18 @@
 
     oppdater score på highscorelista med samme navn
 
+    FIXING:
+    Fikse overlapping med powerups og coins
+
+    gmap:
+    gray
+    gray (insertbefore elem)
+    elem : element som skiller powerup og gray boxes
+    powerup
+    powerup
+    powerup (insertbefore coin)
+    coin
+
  */
 
 // game map
@@ -26,18 +38,26 @@ let tbody = document.getElementById("tBdy");
 let nickInp = document.getElementById("nickInp");
 
 // CoinsStatus
-let coinRadius = 17;
 let antCoins = document.getElementById("antCoins");
 let collectedCoins = 0;
 
-// Obstacle status
+// Radius
 let obstacleRadius = 50;
+let coinRadius = 17;
 
 // powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink]
 let powerUpArray = [];
 let powerUpTypes = ["small", "big", "bonus", "loss", "change"];
 let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
+
+// Audio elements
+let coinSound = setAudioElem('../audio/sfx/coinsound.mp3');
+let gameOverSound;
+let pickupSound;
+let powerupSound;
+let winSound;
+let theme;
 
 /* gamemodes:
     0: startup menu,
@@ -322,5 +342,6 @@ function playAudio(elem) {
 
 function stopAudio(elem) {
     elem.pause();
+    elem.currentTime = 0;
 }
 
