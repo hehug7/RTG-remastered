@@ -10,6 +10,8 @@
     countingsort for tabell
     mulighet til å lagre highscore lokalt
 
+    oppdater score på highscorelista med samme navn
+
  */
 
 // game map
@@ -172,7 +174,7 @@ function spawnPowerUp() {
 
     // Create poweruprect
     let pur = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    pur.setAttribute("onmouseover", activatePowerUp);
+    pur.addEventListener("mouseover", activatePowerUp);
     pur.setAttribute("x", xPos);
     pur.setAttribute("y", yPos);
     pur.setAttribute("fill", powerUp.color);
@@ -185,7 +187,7 @@ function spawnPowerUp() {
 }
 
 function activatePowerUp(evt) {
-    console.log(evt.targetName)
+    console.log(evt.target)
 
 }
 
