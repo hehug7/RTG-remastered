@@ -30,7 +30,9 @@
             ++
 
     FIXING:
-    Fikse overlapping med powerups og coins
+
+        TODO overlapping med obstacle og mus
+    Fikse overlapping med powerups, obstacle og coins (z-index)
 
     gmap:
     gray
@@ -116,8 +118,8 @@ function initGame() {
         createCoin();
     }
 
-    // Spawn powerup
-    powerUpSpawner = setInterval(spawnPowerUp, pusi/1000);
+    // Spawn powerup (pusi is in seconds)
+    powerUpSpawner = setInterval(spawnPowerUp, pusi*1000);
 
     // Audio
     playAudio(themeSong);
@@ -310,27 +312,16 @@ function coinTouched(evt) {
 
 // Endrer posisjonen til mynten
 function changeCoinPos(evt) {
-    let mouseX = evt.clientX;
-    let mouseY = evt.clientY;
-
-    let offset = gMap.getBoundingClientRect();
-    mouseX -= offset.left;
-    mouseY -= offset.top;
-
     let coin = document.getElementById("coin");
 
     // random positions for cx and cy:
     let rcx = getRandomPos(coinRadius);
     let rcy = getRandomPos(coinRadius);
 
-
-    // Checks for overlapping with mouse
-    while (isOverlapping(mouseY, coinRadius, rcy)) {
-        rcy = getRandomPos();
-    }
-
     // mouseX - offset + coinRadius + 2 <= rcx && mouseX - coinRadius - 2 >= rcx
-    while (isOverlapping(mouseX, coinRadius, rcx)) {
+    // Checks for overlapping with mouse
+    while (isOverlapping(evt, coinRadius, rcx, rcy)) {
+        rcy = getRandomPos();
         rcx = getRandomPos();
     }
 
@@ -349,8 +340,19 @@ function getRandomPos(radius) {
     return Math.floor(Math.random() * (400-radius)) + radius;
 }
 
-function isOverlapping(mouseAxis, radius, coord) {
-    return mouseAxis + radius + 2 <= coord && mouseAxis - radius - 2 >= coord;
+function isOverlapping(evt, radius, coordx, coordy) {
+    let mouseX = evt.clientX;
+    let mouseY = evt.clientY;
+
+    let offset = gMap.getBoundingClientRect();
+    mouseX -= offset.left;
+    mouseY -= offset.top;
+
+    if (mouseX + radius + 2 <= coordx && mouseX - radius - 2 >= coordx) {
+        return true;
+    }
+
+    return (mouseY + radius + 2 <= coordy && mouseY - radius - 2 >= coordy);
 }
 
 function createObstacle() {
@@ -383,9 +385,7 @@ function playAudio(elem) {
     elem.play();
 }
 
-
 function stopAudio(elem) {
     elem.pause();
     elem.currentTime = 0;
 }
-
