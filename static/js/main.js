@@ -1,16 +1,33 @@
 /*
     Ideer:
         prøveteste tidsinterval mellom powerups og maxcoins avhengig av lvl.
-        ordne en ordentlig highscore tabell
 
+        TODO Etablere spillgrid
     Etabler spillgrid 20 * 20 ? /50/100
 
-    legg til random powerup (velger fra en av de andre)
+    Highscoretabell
+        TODO Countingsort for highscoretabell
+        TODO mulighet til å lagre highscore lokalt
+        Localstorage
+        TODO oppdater scoren på highscorelista when someone submits
+        TODO oppdaterer scoren om samme navn blir registrert
 
-    countingsort for tabell
-    mulighet til å lagre highscore lokalt
+    Powerups
+        TODO Legge til random powerup
+        Velger random en funksjon fra de andre
+        TODO legger til en lydsfx for hver powerup
 
-    oppdater score på highscorelista med samme navn
+    Implementere liv?
+        ha 3 liv
+
+    On completion
+        TODO UNLOCKABLES: lage en rainbow colored circle(coin)
+        TODO lage lvl 2 hvor du maa samle flere coins
+        TODO gamemodes
+            Grey obstacles in random sizes each time.
+            the powerups are your enemy?
+            hardcore: du har bare ett liv
+            ++
 
     FIXING:
     Fikse overlapping med powerups og coins
@@ -23,17 +40,19 @@
     powerup
     powerup (insertbefore coin)
     coin
-
  */
 
 // game map
 let map = document.getElementById("map");
 let gMap = document.getElementById("gMap");
+
+// titles
 let titles = document.getElementById("titles");
+let title1 = document.getElementById("title1");
+let title2 = document.getElementById("title2");
 
 // Handles submitting highscore
 let regBtn = document.getElementById("regBtn");
-let table = document.getElementById("tbl");
 let tbody = document.getElementById("tBdy");
 let nickInp = document.getElementById("nickInp");
 
@@ -52,12 +71,11 @@ let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
 
 // Audio elements
-let coinSound = setAudioElem('coinsound.mp3');
-let gameOverSound;
-let pickupSound;
-let powerupSound;
-let winSound;
-let theme;
+let coinSound = setAudioElem('coinsound.mp3', 'sfx');
+let gameOverSound = setAudioElem('deadSound.mp3', 'sfx');
+let powerUpSound = setAudioElem('powerup.mp3', 'sfx');
+let winSound = setAudioElem('winSound.mp3', 'sfx');
+let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
 
 /* gamemodes:
     0: startup menu,
@@ -96,6 +114,9 @@ function initGame() {
 
     // Spawn powerup
     powerUpSpawner = setInterval(spawnPowerUp, 3000)
+
+    // Audio
+    playAudio(themeSong);
 }
 
 function exitGame() {
@@ -111,6 +132,15 @@ function exitGame() {
     //Slutter å spawne powerups
     clearInterval(powerUpSpawner);
 
+    // Audio
+    playAudio(gameOverSound);
+    stopAudio(themeSong);
+}
+
+function winGame() {
+    exitGame()
+    title1.innerHTML = "GRATULERER DU VANT!";
+    title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
 }
 
 map.onclick = function startGame() {
@@ -120,7 +150,6 @@ map.onclick = function startGame() {
     }
 
     initGame();
-
 };
 
 map.onmouseleave = exitGame;
@@ -149,6 +178,9 @@ function isDuplicateName(name) {
 function addAndUpdateScore(amount) {
     let sum = collectedCoins += amount;
     sum < 0 ? antCoins.innerHTML = 0 : antCoins.innerHTML = sum;
+    if (sum >= 5) {
+        winGame();
+    }
 }
 
 regBtn.onclick = function(event) {
@@ -234,6 +266,7 @@ function activatePowerUp(evt) {
             break;
     }
 
+    playAudio(powerUpSound);
 
     gMap.removeChild(touchedPowup)
 
@@ -328,12 +361,15 @@ function createObstacle() {
     obs.setAttribute("width", obstacleRadius);
     obs.setAttribute("stroke-width", "3");
     obs.setAttribute("stroke", "#000000");
+
     // legger til i rekken bak coin slik at coin ligger over gray firkanter
     gMap.insertBefore(obs, document.getElementById("coin"));
 }
 
-function setAudioElem(filename) {
-    return new Audio(filename);
+function setAudioElem(filename, type) {
+    return type === 'sfx' ?
+        new Audio('../static/audio/sfx/' + filename) :
+        new Audio('../static/audio/themes/' + filename);
 }
 
 function playAudio(elem) {
