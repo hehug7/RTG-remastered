@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Retrieve lost gold</title>
+    <style>
+        #papir {
+            background-color: darkgreen;
+            cursor: pointer;
+        }
+
+        * { margin:0; padding:0; 
+        	}
+
+        input {
+            padding: 10px;
+        }
+        button {
+            padding: 5px;
+            font-size: 20px;
+        }
+        ul {
+            padding: 20px;
+            font-size: 20px;
+            position: absolute;
+            left: 750px;
+            top: 120px;
+        }
+        #poengListe {
+            padding: 20px;
+            position: absolute;
+            left: 750px;
+            top: 80px;
+            font-weight: bold;
+            font-size: 200%;
+        }
+        #score {
+            padding: 20px;
+            font-weight: bold;
+            font-size: 200%;
+        }
+
+        #spanS {
+        	background-color:#79bbff; color:blue; font-family:serif; font-size:medium; 
+        }
+
+        #regNavn {
+        	width: 100px;		
+        }
+
+        #devText {
+        	pointer-events: none;
+        }
+        #varsel {
+        	pointer-events: none;
+        }
+        #poengSum {
+        	pointer-events: none;
+        }
+
+        #xpBarText {
+        	pointer-events: none;
+        }
+
+        .myButtonS {
+        	height: 60px;
+        	text-align: left;
+        	width: 115px;
+	        -moz-box-shadow: 3px 4px 0px 0px #1564ad;
+	        -webkit-box-shadow: 3px 4px 0px 0px #1564ad;
+			box-shadow: 3px 4px 0px 0px #1564ad;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+			background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+			background-color:#79bbff;
+	        -moz-border-radius:5px;
+	        -webkit-border-radius:5px;
+			border-radius:5px;
+			border:1px solid #337bc4;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:17px;
+			font-weight:bold;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #528ecc;
+			position: relative;
+			}
+		.myButtonS:hover {
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+				background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+				background-color:#378de5;
+			}
+		.myButtonS:active {
+				position:left;
+				top:1px;
+			}
+
+    	.myButton {
+        	text-align: center;
+        	width: 115px;
+        	height: 60px;
+	        -moz-box-shadow: 3px 4px 0px 0px #1564ad;
+	        -webkit-box-shadow: 3px 4px 0px 0px #1564ad;
+			box-shadow: 3px 4px 0px 0px #1564ad;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+			background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+			background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+			background-color:#79bbff;
+	        -moz-border-radius:5px;
+	        -webkit-border-radius:5px;
+			border-radius:5px;
+			border:1px solid #337bc4;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:17px;
+			font-weight:bold;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #528ecc;
+			}
+		.myButton:hover {
+				background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+				background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+				background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+				filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+				background-color:#378de5;
+			}
+		.myButton:active {
+				position:relative;
+				top:1px;
+			}
+
+
+
+
+    </style>
+
+</head>
+<body>
+<svg width="600" height="650" id="papir" x="425" y="50">
+    <rect id="linje1" width="600" height="2" x="0" y="600" fill="#034511"></rect>
+    <rect id="linje2" width="600" height="2" x="0" y="625" fill="#034511"></rect>
+    <!-- <circle id="coin" cx="285" cy="305" r="17" fill="yellow" stroke-width="1.5" stroke="black"></circle>  -->
+    <text visibility="visible" text-anchor="middle" xml:space="preserve" text-decoration="underline" font-family="Comic Sans" font-size="50" id="titleText" y="150" x="300" stroke-width="0" stroke="#000000" fill="yellow">RETRIEVE LOST GOLD</text>
+    <text visibility="visible" xml:space="preserve" font-family="Fantasy" font-size="48" id="startText" y="270" x="140" stroke-width="0" stroke="#000000" fill="#DF7401">CLICK TO START</text>
+
+    <g id="allTut" visibility="hidden">
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="24" id="tutorialText" y="200" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000">Tutorial:</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="220" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000">You are running through a maze hunting for your grandma's goldcoins.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="240" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000">Each time you pick a coin there will be created a new gray square that is deadly...Because...it's grey. Duh'.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="260" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Powerups will spawn over time and there are five kinds: </text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="300" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The blue one will make your coins bigger - easier to collect.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="320" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The green one will reduce the size of your next obstacles.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="340" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The orange one will give you a bonus: 5 coins.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="360" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The red one will take 7 of your coins - avoid it.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="380" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The pink one is your best friend. It moves your coin. May come in handy if your coin is stuck.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="420" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> The obstacles and powerups will stay for unlimited time, but powerups spawns randomly.</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="440" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Press the "tutorial" button to return to the menu. </text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="460" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Good luck! </text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="500" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Disclaimer to soundeffects and themesong. </text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="520" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Themesong: Hyper street fighter II - Guile's theme</text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="540" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Coding and idea by ' Thomas André Skaaheim ' </text>
+
+    	<text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="14" id="tutorialText" y="560" x="295" width="300" stroke-width="0" stroke="#000000" fill="#000000"> Special thanks to all supporters of this game. </text>
+
+
+    </g>
+
+    
+        <text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="24" id="howText1" y="360" x="280" stroke-width="0" stroke="#000000" fill="#000000">How to play:</text>
+        <text visibility="visible" text-anchor="middle"  xml:space="preserve" font-family="Fantasy" font-size="24" id="howText2" y="400" x="280" stroke-width="0" stroke="#000000" fill="#000000">Guide your mouse and collect 100 coins!</text>
+        <text visibility="visible" text-anchor="middle" xml:space="preserve" font-family="Fantasy" font-size="24" id="howText3" y="425" x="280" stroke-width="0" stroke="#000000" fill="#000000">First time? Press the tutorial button!</text>
+        <text visibility="visible"  xml:space="preserve" font-family="Fantasy" font-size="24" id="howText4" y="550" x="130" stroke-width="0" stroke="#000000" fill="#000000">Hint: Some powerups might help..</text>
+        <text visibility="visible"  xml:space="preserve" font-family="Fantasy" font-size="24" id="howText5" y="315" x="175" stroke-width="0" stroke="#000000" fill="#000000">Coin ==> </text>
+
+        <text fill="#000000" stroke="#8e0000" stroke-width="0" x="20" y="400" id="devText" font-size="230" font-family="verdana" xml:space="preserve" font-weight="bold" opacity="0.4">v2.9</text>
+        <text text-anchor="middle" font-weight="bold" xml:space="preserve" font-family="verdana" font-size="20" id="varsel" y="623" x="280" stroke-width="0" stroke="#000000" fill="#000000"></text>
+        <text font-weight="bold" xml:space="preserve" font-family="verdana" font-size="20" id="poengSum" y="623" x="2" stroke-width="0" stroke="#000000" fill="#000000">Coins: 0</text>
+        <text text-anchor="end" font-weight="bold" xml:space="preserve" font-family="verdana" font-size="14" id="xpBarText" y="643" x="593" stroke-width="0" stroke="#000000" fill="#000000">XP: 0/600</text>
+
+    <g id="gpapir">
+
+    </g>
+
+</svg>
+
+<br>
+<input id="regNavn" type="text" class="spanS" placeholder="Nickname" required>
+<button id="regBtn" class="myButtonS">Submit </button>
+<button id="tutBtn" class="myButtonS">Tutorial</button>
+<button id="musicBtn" class="myButton">Music ON</button>
+<button id="sfxBtn" class="myButton">SFX ON</button>
+
+<p id="score">Score: 0</p>
+
+
+
+<br>
+<p id="poengListe">Highscore:</p>
+<ul id="highscore">
+</ul>
+
+
+<div id="poenger"></div>
+
+<script>
+var gpapir = document.getElementById("gpapir");
+var score = document.getElementById("score");
+var startText = document.getElementById("startText");
+var poengSum = document.getElementById("poengSum");
+var devText = document.getElementById("devText");
+var regNavn = document.getElementById("regNavn");
+var highscore = document.getElementById("highscore");
+var regBtn = document.getElementById("regBtn");
+var coin = document.getElementById("coin");
+var varsel = document.getElementById("varsel");
+var howText5 = document.getElementById("howText5");
+var papir = document.getElementById("papir");
+var xpBarText = document.getElementById("xpBarText");
+var musicBtn = document.getElementById("musicBtn");
+var sfxBtn = document.getElementById("sfxBtn");
+var tutBtn = document.getElementById("tutBtn");
+var allTut = document.getElementById("allTut");
+var titleText = document.getElementById("titleText");
+
+// lyder 
+var coinSound = new Audio('sounds/coinSound.mp3');
+var themeSong = new Audio('sounds/StreetFighter.mp3');
+var deadSound = new Audio('sounds/shutdown.mp3');
+var powerupSound = new Audio('sounds/powerup.mp3');
+var winSound = new Audio('sounds/winSound.mp3');
+
+
+// globale variabler
+
+var posisjoner = [];
+var coinPosisjoner = [];
+
+var coinX;
+var coinY;
+
+var mouseX = 0;
+var mouseY = 0;
+var spikeOverride;
+var spikeheight = 50;
+var spikewidth = 50;
+
+var coinRadius = 17;
+var coin;
+
+var cx;
+var cy;
+
+var i = 0;
+var j = 0;
+var h = 0;
+var k = 0;
+var p = 0;
+var q = 0;
+var qt = 0;
+var firstTime = true;
+
+var musHarForlatt = false;
+var musOnSpike = false;
+var startSpill = false;
+var regHighscore = false;
+var ledigCoin = true;
+var ledig = true;
+var firstSpike = false;
+
+// xpbar og powerups
+var xpBar;
+var xp = 0;
+var xpVekst = 0;
+var totalXp = 0;
+
+
+var powerupSirkel;
+var powerupSirkelId;
+var powerIntAv = true;
+var powerTid = 0;
+var powerInt = setInterval( function() { lagPowerup() }, 5000);
+clearInterval(powerInt);
+
+var powerupArray = [];
+var powerup = 0;
+
+// tutorial variabler
+var tutorialInnmat = allTut.innerHTML;
+allTut.innerHTML = "";
+var tut = false;
+
+
+//Lager powerupsobjekter
+
+var powerupType;
+var powernavn = ["small", "big", "bonus", "loss", "change"];
+var powercolor = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"]
+
+//
+
+// tutorialknapp
+	tutBtn.onclick = function (evt) {
+		evt.preventDefault();
+
+
+
+		if (startSpill == false && tut == false) {
+			tut = true;
+			console.log("heii")
+
+		allTut.innerHTML = tutorialInnmat;
+
+		coin.setAttribute("r", "0")
+		
+		poengSum.innerHTML = "";
+		titleText.setAttribute("visibility", "hidden");
+		startText.setAttribute("visibility", "hidden");
+   		howText1.setAttribute("visibility", "hidden");
+    	howText2.setAttribute("visibility", "hidden");
+    	howText3.setAttribute("visibility", "hidden");
+    	howText4.setAttribute("visibility", "hidden");
+    	howText5.setAttribute("visibility", "hidden");
+
+		} else if (startSpill == false && tut == true) {
+			tut = false;
+			allTut.innerHTML = "";
+
+			titleText.setAttribute("visibility", "visible");		
+			startText.setAttribute("visibility", "visible");
+    		howText1.setAttribute("visibility", "visible");
+    		howText2.setAttribute("visibility", "visible");
+    		howText3.setAttribute("visibility", "visible");
+    		howText4.setAttribute("visibility", "visible");
+    		howText5.setAttribute("visibility", "visible");
+
+
+    		coin.setAttribute("cx", 285);
+    		coin.setAttribute("cy", 305);
+    		coin.setAttribute("r", "17");
+    		papir.appendChild(coin);
+		}
+	}
+//
+
+//Lager musikk og Sfx knapper og funksjkoner 
+
+var music = true;
+var sfx = true;
+
+musicBtn.onclick = function(evt) {
+	evt.preventDefault();
+	if (music) {
+		music = false;
+		musicBtn.innerHTML = "Music OFF";
+	} else if (!music) {
+		music = true;
+		musicBtn.innerHTML = "Music ON";
+	}
+}
+
+sfxBtn.onclick = function(evt) {
+	evt.preventDefault();
+	if (sfx) {
+		sfx = false;
+		sfxBtn.innerHTML = "SFX OFF";
+	} else if (!sfx) {
+		sfx = true;
+		sfxBtn.innerHTML = "SFX ON";
+	}
+}
+
+//
+
+function lagPowerups() {
+    for (var i = 0; i < powernavn.length; i++) {
+        var powerups = {
+            navn: powernavn[i],
+            farge: powercolor[i],
+            type: i,
+        }
+
+        powerupArray.push(powerups);
+    }
+}
+
+lagXpBarTekst();
+lagPowerups();
+
+
+var venstreVegg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    venstreVegg.setAttribute("width", "10");
+    venstreVegg.setAttribute("height", "650");
+    venstreVegg.setAttribute("x", "-8");
+    venstreVegg.setAttribute("y", "0");
+    venstreVegg.setAttribute("fill", "#847d7d");
+    papir.appendChild(venstreVegg);
+
+var hoyreVegg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    hoyreVegg.setAttribute("width", "10");
+    hoyreVegg.setAttribute("height", "650");
+    hoyreVegg.setAttribute("x", "597");
+    hoyreVegg.setAttribute("y", "0");
+    hoyreVegg.setAttribute("fill", "#847d7d");
+    papir.appendChild(hoyreVegg);
+
+var takVegg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    takVegg.setAttribute("width", "600");
+    takVegg.setAttribute("height", "10");
+    takVegg.setAttribute("x", "0");
+    takVegg.setAttribute("y", "-7");
+    takVegg.setAttribute("fill", "#847d7d");
+    papir.appendChild(takVegg);
+
+var bakkeVegg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    bakkeVegg.setAttribute("width", "600");
+    bakkeVegg.setAttribute("height", "10");
+    bakkeVegg.setAttribute("x", "0");
+    bakkeVegg.setAttribute("y", "647");
+    bakkeVegg.setAttribute("fill", "#847d7d");
+    papir.appendChild(bakkeVegg);
+
+// Hva som skjer om du starter spillet
+papir.onclick = function (evt) {
+    if (startSpill === false && tut == false) {
+    evt.preventDefault();
+    startSpill = true;
+    musHarForlatt = false;
+    musOnSpike = false;
+    regHighscore = false;
+    ledigCoin = true;
+    firstTime = true;
+
+    	// slett om du skal ha xp
+    	if (xpBar == !undefined) {
+    	xpBarTekst.innerHTML = "XP: 0/600";
+    	xpBar.setAttribute("width", "0");
+    	}
+    	//
+
+    if (music) {
+	    themeSong.pause();
+	    themeSong.currentTime = 0;
+	    themeSong.play();
+	}
+
+	allTut.setAttribute("visibility", "hidden");
+	titleText.setAttribute("visibility", "hidden");
+    startText.setAttribute("visibility", "hidden");
+    howText1.setAttribute("visibility", "hidden");
+    howText2.setAttribute("visibility", "hidden");
+    howText3.setAttribute("visibility", "hidden");
+    howText4.setAttribute("visibility", "hidden");
+    howText5.setAttribute("visibility", "hidden");
+
+    poengSum.innerHTML = "Coins: 0";
+
+    posisjoner = [];
+    coinPosisjoner = [];
+
+    clearInterval(powerInt);
+    powerTid = 0;
+    powerPerTid();
+
+    spikewidth = 50;
+    spikeheight = 50;
+    coinRadius = 17;
+
+    totalXp = 0;
+
+} else {
+	if (xpBar == !undefined) {
+		xpBarTekst.innerHTML = "XP: 0/600";
+	}
+
+    return;
+}
+
+};
+
+
+
+function tegnMynt() {
+	coin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    coin.setAttribute("id", "coin");
+    coin.setAttribute("cx", "285");
+    coin.setAttribute("cy", "305");
+    coin.setAttribute("fill", "yellow");
+    coin.setAttribute("r", coinRadius);
+    coin.setAttribute("stroke-width", "1.5");
+    coin.setAttribute("stroke", "black");
+    gpapir.appendChild(coin);
+}
+	tegnMynt();
+
+
+// >, >, +, + , - , -, 35
+
+function lagCoin(event) {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+    if (mouseX < (cx + 30) && mouseY < (cy + 30) || mouseX < (cx - 30) && mouseY < (cy - 30)) {
+        spikeOverride = true;
+    } else {
+        spikeOverride = false;
+    }
+    sjekkLedigPlass();
+    lagNySpike();
+
+    sjekkLedigPlassCoin();
+
+    ledig = true;
+
+    i = i + 1;
+    poengSum.innerHTML = "Coins: " + i;
+
+}
+
+function sjekkLedigPlassCoin() {
+    console.log("ledigplasscoin");
+
+    coinX = 553 - (Math.floor(Math.random() * 553));
+    coinY = 553 - (Math.floor(Math.random() * 553));
+
+    for(qt = 0; qt < posisjoner.length && !ledig; qt++) {
+
+        var xC = posisjoner[i].xpos;
+        var yC = posisjoner[i].ypos;
+
+        if (!firstTime) {
+            q = posisjoner.length;
+        }
+
+        if ((xC + 30) < (coinX + 16) && (yC + 30) < (coinY + 16) || (xC - 30) > (coinX - 16) && (yC - 30) > (coinY - 16)) {
+            if(ledig) {
+                q--;
+                console.log("qLedig" + q);
+            } else {
+                console.log("CoinOverride" + q);
+                coinX = 553 - (Math.floor(Math.random() * 553));
+                coinY = 553 - (Math.floor(Math.random() * 553));
+                sjekkLedigPlassCoin();
+            }
+        }
+    }
+
+    if (firstTime || q === 0) {
+        console.log("laget coin");
+        coin.setAttribute("r", coinRadius);
+        coin.setAttribute("cx", coinX);
+        coin.setAttribute("cy", coinY);
+        papir.appendChild(coin);
+        firstTime = false;
+    }
+    // console.log("laget coin ved hjelp av q");
+}
+
+function sjekkLedigPlass() {
+    // p er konstant for hvor mange "ledig" det er for "for-løkken"
+    p = posisjoner.length;
+    cx = 550 - (Math.floor(( Math.random()) * 550));
+    cy = 550 - (Math.floor(( Math.random()) * 550));
+    ledig = true;
+
+    for(j = 0; j < posisjoner.length && !ledig; j++) {
+
+        var x = posisjoner[i].xpos;
+        var y = posisjoner[i].ypos;
+
+        if ((x + 35) < (coinX + 16) && (y + 35) < (coinY + 16) || (x - 35) > (coinX - 16) && (y - 35) > (coinY - 16)) { // - 17 er originalt for coinX
+            if(ledig) {
+                console.log(p);
+                p--;
+            }
+        }
+    }
+
+    if (!ledig) {
+        cx = 550 - (Math.floor(( Math.random()) * 550));
+        cy = 550 - (Math.floor(( Math.random()) * 550));
+        sjekkLedigPlass();
+
+    } else if (ledig && !spikeOverride && p === posisjoner.length) {
+        lagNySpike();
+    }
+}
+
+function lagNySpike() {
+    var spike = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    spike.onmouseover = endGameSpike;
+    spike.setAttribute("x", cx);
+    spike.setAttribute("y", cy);
+    spike.setAttribute("fill", "#847d7d");
+    spike.setAttribute("height", spikeheight);
+    spike.setAttribute("width", spikewidth);
+    spike.setAttribute("stroke-width", "3");
+    spike.setAttribute("stroke", "#000000");
+    gpapir.appendChild(spike);
+
+    posisjoner.push({ xpos: cx, ypos: cy });
+    lengde = posisjoner.length--;
+    p = lengde;
+}
+
+// Knappen som registrerer highscore
+regBtn.onclick = function (evt) {
+	evt.preventDefault();
+    if (regHighscore === false && !regNavn.value == "") {
+    	console.log(regNavn.value)
+        var nyHighscore = document.createElement("li");
+        nyHighscore.innerHTML = regNavn.value + " : " + h;
+        highscore.appendChild(nyHighscore);
+        score.innerHTML = "Score: " + h;
+        h = 0;
+    }
+};
+
+// Definerer hva som vil skje når musa er nær spike(s).
+function endGameSpike(evt) {
+    evt.preventDefault();
+    startSpill = false;
+    musOnSpike = true;
+    clearInterval(powerInt);
+    varsel.innerHTML = "";
+
+    if (sfx) {
+    	themeSong.pause();
+
+    	deadSound.pause();
+    	deadSound.currentTime = 0;
+    	deadSound.play();
+
+    }
+
+    poengSum.innerHTML = "You got " + i + " coins!";
+    varsel.innerHTML = "Try again!";
+    titleText.setAttribute("visibility", "visible");
+    startText.setAttribute("visibility", "visible");
+    howText1.setAttribute("visibility", "visible");
+    howText2.setAttribute("visibility", "visible");
+    howText3.setAttribute("visibility", "visible");
+    howText4.setAttribute("visibility", "visible");
+    howText5.setAttribute("visibility", "visible");
+
+
+    coin.setAttribute("cx", 285);
+    coin.setAttribute("cy", 305);
+    coin.setAttribute("r", "17");
+    papir.appendChild(coin);
+
+    gpapir.innerHTML = "";
+
+    h = i;
+    score.innerHTML = "Score: " + h;
+    i = 0;
+    coinRadius = 17;
+    lagXpBarTekst();
+    lagXpBar();
+};
+
+// Lager en funksjon som nullstiller og lagrer score når du tar musa utenfor spillet
+papir.onmouseleave = function () {
+    clearInterval(powerInt);
+    varsel.innerHTML = "";
+
+    themeSong.pause();
+
+
+    if (startSpill) {
+        if (!musHarForlatt && !musOnSpike) {
+            musHarForlatt = true;
+            titleText.setAttribute("visibility", "visible");
+            startText.setAttribute("visibility", "visible");
+            howText1.setAttribute("visibility", "visible");
+            howText2.setAttribute("visibility", "visible");
+            howText3.setAttribute("visibility", "visible");
+            howText4.setAttribute("visibility", "visible");
+            howText5.setAttribute("visibility", "visible");
+
+            poengSum.innerHTML = "You got " + i + " coins!" + " Try again!";
+
+            coin.setAttribute("cx", 285);
+            coin.setAttribute("cy", 305);
+            coin.setAttribute("r", 17);
+            papir.appendChild(coin);
+
+            gpapir.innerHTML = "";
+            h = i;
+            score.innerHTML = "Score: " + h;
+
+            i = 0;
+            startSpill = false;
+            coinRadius = 17;
+
+            if (sfx) {
+            	deadSound.pause();
+   				deadSound.currentTime = 0;
+    			deadSound.play();
+            }
+
+            
+
+        } else if (musOnSpike) {
+            startSpill = false;
+        }
+    }
+    lagXpBarTekst();
+    lagXpBar();
+};
+
+
+// Hvis spillet er startet og musa er nær coinen, skal det lages en ny coin og spillet er i gang
+coin.onmouseover = function (evt) {
+    evt.preventDefault();
+    varsel.innerHTML = "";
+    lagXpBarTekst();
+    lagXpBar();
+
+
+
+    if (startSpill === true) {
+        if (i >= 100) {
+        	winScreen();
+            score.innerHTML = "You won! You got all the coins!"
+        } else {
+
+        	if (sfx) {
+
+        		coinSound.pause();
+   				coinSound.currentTime = 0;
+    			coinSound.play();
+        	}
+
+            lagCoin(evt);
+        }
+    }
+};
+
+// Powerups skal dukke opp hvert 15. sekund
+function powerPerTid(){
+    clearInterval(powerInt);
+    powerInt = setInterval( function() { lagPowerup() }, 10000);
+    console.log(powerTid);
+    
+}
+
+// Powerupsfunksjonen som skal velge mellom powerups og lage en tilfeldig en av 4.
+function lagPowerup() {
+    var powerType = Math.floor((Math.random() * 5));
+    powerTid = powerTid + 1;
+    console.log("lager tilfeldig tall mellom en og fire: " + powerType + " Powertiden: " + powerTid);
+
+
+
+    var firkantx = 550 - (Math.floor(( Math.random()) * 550));
+    var firkanty = 550 - (Math.floor(( Math.random()) * 550));
+
+    powerup = powerupArray[powerType];
+    var powerupsfarge = powerup.farge
+
+    powerupType = powerup.type;
+    console.log(powerupType);
+
+    powerupSirkelId = ("powerupId" + powerTid).toString();
+
+    // noter "endgamespike" vil være en annen funksjon som gir en effekt basert på typen
+    var powerupSirkel = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    powerupSirkel.setAttribute("onmouseover", "powerupEffekt(evt)");
+    powerupSirkel.setAttribute("id", powerupSirkelId);
+    powerupSirkel.setAttribute("x", firkantx);
+    powerupSirkel.setAttribute("y", firkanty);
+    powerupSirkel.setAttribute("fill", powerupsfarge);
+    powerupSirkel.setAttribute("height", "25");
+    powerupSirkel.setAttribute("width", "25");
+    powerupSirkel.setAttribute("stroke-width", "3");
+    powerupSirkel.setAttribute("stroke", "#000000");
+    gpapir.appendChild(powerupSirkel);
+}
+
+// functionen eller effekten til powerups
+function powerupEffekt(event) {
+	var target = event.target;
+	var targetFill = target.getAttribute("fill");
+	console.log("targetfill: " + targetFill);
+
+
+    if (sfx) {
+    	powerupSound.pause();
+		powerupSound.currentTime = 0;
+		powerupSound.play();	
+    }
+
+		
+
+
+
+	// effekt ut ifra farge ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000"] grønn, blå, oransj, rød
+
+	if (targetFill == "#37FF00") {
+		spikewidth = spikewidth - 3;
+		spikeheight = spikeheight - 3;
+		varsel.innerHTML = "Reduced the size of squares!";
+
+	} else if (targetFill == "#1100FF") {
+		coinRadius = coinRadius + 2;
+		varsel.innerHTML = "Your coins got bigger!";
+
+	} else if (targetFill == "#FF8D00") {
+		i = i + 5;
+		poengSum.innerHTML = "Coins: " + i;
+		varsel.innerHTML = "You got 5 more coins!";
+
+		totalXp = totalXp + (xpVekst * 5);
+		xpBar.setAttribute("width", totalXp);
+		gpapir.appendChild(xpBar);
+		xpBarText.innerHTML = totalXp + "/600";
+
+	} else if (targetFill == "#FF0000") {
+		i = i - 7;
+		if (i < 0) {
+			i = 0;
+		}
+		varsel.innerHTML = "You lost 7 coins!";
+		totalXp = totalXp - (xpVekst * 7);
+
+		xpBar.setAttribute("width", totalXp);
+		gpapir.appendChild(xpBar);
+		xpBarText.innerHTML = totalXp + "/600";	
+
+	} else if (targetFill == "#F400E8") {
+		coinX = 553 - (Math.floor(Math.random() * 553));
+    	coinY = 553 - (Math.floor(Math.random() * 553));
+
+        coin.setAttribute("cx", coinX);
+        coin.setAttribute("cy", coinY);
+        papir.appendChild(coin);
+        varsel.innerHTML = "Moved your coin!";
+	}
+
+	poengSum.innerHTML = "Coins: " + i;	
+
+	gpapir.removeChild(target);
+
+}
+
+
+// lager xpbar: 
+
+function lagXpBar() {
+
+	xpVekst = 6;
+
+	if (startSpill == true) {
+		totalXp = totalXp + xpVekst;
+
+		if (xpBar >= 600) {
+			totalXp = totalXp - 600;
+			console.log("totalXp" + totalXp)
+
+		}
+	}
+
+
+	xpBar = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+	xpBar.setAttribute("id", "xpBar");
+    xpBar.setAttribute("x", "0");
+    xpBar.setAttribute("y", "627");
+    xpBar.setAttribute("fill", "#00E8CD");
+    xpBar.setAttribute("height", "30");
+    xpBar.setAttribute("width", totalXp);
+    xpBar.setAttribute("stroke-width", "0");
+    xpBar.setAttribute("stroke", "#000000");
+    gpapir.appendChild(xpBar);
+	// tyrkis farge #00E8CD
+
+
+	xpBarText.innerHTML = "XP: " + totalXp.toFixed(0) + "/600";
+}
+
+// xptekst:
+
+function lagXpBarTekst() {
+
+	// slett meg om du vil ha xp
+	if (startSpill == false) {
+		totalXp = 0;
+	}
+	//
+
+	if(xpBarTekst == !undefined) {
+
+	gpapir.removeChild(xpBarTekst);
+
+	var xpBarTekst = document.createElementNS("http://www.w3.org/2000/svg", "text");
+	xpBarTekst.setAttribute("text-anchor", "middle");
+    xpBarTekst.setAttribute("font-weight", "bold");
+    xpBarTekst.setAttribute("xml:space", "preserve");
+    xpBarTekst.setAttribute("font-family", "verdana");
+    xpBarTekst.setAttribute("font-size", "14");
+    xpBarTekst.setAttribute("id", "xpBarText");
+    xpBarTekst.setAttribute("x", "280");
+    xpBarTekst.setAttribute("y", "642");
+    xpBarTekst.setAttribute("stroke-width", "0");
+    xpBarTekst.setAttribute("stroke", "#000000");
+    xpBarTekst.innerHTML = "XP: " + totalXp + "/600";
+    gpapir.appendChild(xpBarTekst);		
+	}
+
+
+}
+
+
+papir.oncontextmenu = function(evt) {
+	clearInterval(powerInt);
+    varsel.innerHTML = "";
+
+    themeSong.pause();
+
+
+    if (startSpill) {
+        if (!musHarForlatt && !musOnSpike) {
+            musHarForlatt = true;
+            titleText.setAttribute("visibility", "visible");
+            startText.setAttribute("visibility", "visible");
+            howText1.setAttribute("visibility", "visible");
+            howText2.setAttribute("visibility", "visible");
+            howText3.setAttribute("visibility", "visible");
+            howText4.setAttribute("visibility", "visible");
+            howText5.setAttribute("visibility", "visible");
+
+            poengSum.innerHTML = "You got " + i + " coins!" + " Try again!";
+
+            coin.setAttribute("cx", 300);
+            coin.setAttribute("cy", 300);
+            coin.setAttribute("r", 17);
+            papir.appendChild(coin);
+
+            gpapir.innerHTML = "";
+            h = i;
+            score.innerHTML = "Score: " + h;
+
+            i = 0;
+            startSpill = false;
+            coinRadius = 17;
+
+
+
+            if (sfx) {
+            	deadSound.pause();
+   				deadSound.currentTime = 0;
+    			deadSound.play();
+            }
+
+        } else if (musOnSpike) {
+            startSpill = false;
+        }
+    }
+    lagXpBarTekst();
+    lagXpBar();
+}
+
+papir.onmousemove = function() {
+	if (i >= 100) {
+		winScreen();
+	}
+
+	if (musHarForlatt == true) {
+
+		// hvis xpen skal lagres              slett meg
+    	xpBar.setAttribute("width", "0");
+    	gpapir.appendChild(xpBar);
+    	//
+	
+	}
+}
+
+function winScreen() {
+	clearInterval(powerInt);
+    varsel.innerHTML = "";
+
+    if (sfx) {
+    	themeSong.pause();
+    	deadSound.pause();
+    	deadSound.currentTime = 0;
+    	winSound.play();
+    }
+
+
+    if (music) {
+    	themeSong.play();
+    }
+
+
+    if (startSpill) {
+        if (!musHarForlatt && !musOnSpike) {
+            musHarForlatt = true;
+            titleText.setAttribute("visibility", "visible");
+            startText.setAttribute("visibility", "visible");
+            howText1.setAttribute("visibility", "visible");
+            howText2.setAttribute("visibility", "visible");
+            howText3.setAttribute("visibility", "visible");
+            howText4.setAttribute("visibility", "visible");
+            howText5.setAttribute("visibility", "visible");
+
+            poengSum.innerHTML = "You got all the coins!" + " Congratulations!";
+
+            coin.setAttribute("cx", 285);
+            coin.setAttribute("cy", 305);
+            coin.setAttribute("r", 17);
+            papir.appendChild(coin);
+
+            gpapir.innerHTML = "";
+            h = i;
+            score.innerHTML = "Score: " + h;
+
+            i = 0;
+            startSpill = false;
+            coinRadius = 17;
+
+        } else if (musOnSpike) {
+            startSpill = false;
+        }
+    }
+    lagXpBarTekst();
+    lagXpBar();
+}
+
+
+// Ideer: prøveteste tidsinterval mellom powerups og maxcoins avhengig av lvl. 
+// ordne en ordentlig highscore tabell
+
+
+</script>
+</body>
+</html>

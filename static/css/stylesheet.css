@@ -1,0 +1,231 @@
+* {
+    margin:0;
+    padding:0;
+    font-family: fantasy, Arial, Helvetica, monospace;
+    user-select: none;
+}
+
+header {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    right: 0;
+}
+
+h1, h2, h3 {
+    cursor: default;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+h1 {
+    color: yellow;
+    text-decoration: underline;
+}
+
+h2 {
+    color: orange;
+}
+
+h3 {
+    margin-bottom: 0.5em;
+    font-size: 2em;
+}
+
+button {
+    outline: none;
+}
+
+/*
+    css for page container
+ */
+.page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content, .bottom-cont {
+    display: flex;
+    justify-content: center;
+}
+
+.page-content > div:not(:nth-of-type(2)) {
+    flex: 1;
+}
+
+.page-content > div:not(:nth-of-type(2)) {
+    padding: 1em;
+}
+
+/*
+    Game map
+ */
+
+.map {
+    background-color: darkgreen;
+    cursor: pointer;
+    border: 0.3em solid grey;
+    margin: 1em 0.3em;
+    min-height: 400px;
+    min-width: 400px;
+}
+
+#papir, .map, #gMap {
+    width: 400px;
+    height: 400px;
+}
+
+/*
+    Highscore table
+ */
+.highscore-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    width: 100%;
+}
+
+table tr {
+    display: flex;
+}
+
+table tr {
+    margin-bottom: 0.5em;
+    border-bottom: 0.1em solid grey;
+}
+
+table tr td {
+    flex: 1;
+}
+
+table tr td:first-child {
+    border-right: 0.1em solid grey;
+}
+
+table tr td, h3 {
+    text-align: center;
+}
+
+/*
+    Form for bottomcontainer
+ */
+
+.bottom-cont > div {
+    flex:1;
+}
+
+.bottom-cont > div:nth-of-type(1) {
+    flex: 1.5;
+    display: flex;
+    padding: 0 2em;
+}
+
+.form-submit {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    padding-left: 1em;
+}
+
+.form-submit button {
+    flex: 2;
+}
+
+.form-submit input {
+    flex: 5;
+    margin-right: 1em;
+}
+
+.btn-menu, .status-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-menu {
+    margin-left: auto;
+}
+
+.btn-menu button {
+    margin-bottom: 0.5em;
+    height: 4em;
+    width: 8em;
+    box-shadow: 0.2em 0.3em 0em 0em forestgreen;
+    background:linear-gradient(to bottom, greenyellow 5%, forestgreen 100%);
+    background-color:greenyellow;
+    color:#ffffff;
+    border:1px solid forestgreen;
+    border-radius:0.3em;
+    font-size:1em;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.version {
+    margin-bottom: auto;
+}
+
+/*
+    Right container
+ */
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.box-info-cont {
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+}
+
+.box-info-cont div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 0;
+}
+
+.box-info-cont span {
+    display: flex;
+    align-items: center;
+}
+
+/*
+    css for boxes (powerups)
+ */
+.box {
+    display: inline-block;
+    height: 2.5em;
+    max-width: 2.5em;
+    min-height: 2.5em;
+    width: 2.5em;
+}
+
+.blue {
+    background: #1100FF;
+}
+
+.pink {
+    background: #F400E8;
+}
+
+.orange {
+    background: #FF8D00;
+}
+
+.red {
+    background: #FF0000;
+}
+
+.green {
+    background: #37FF00;
+}

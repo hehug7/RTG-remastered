@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Retrieve lost gold</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/stylesheet.css">
+</head>
+<body>
+
+
+    <header id="titles" class="show title">
+        <h1>Retrieve lost gold</h1>
+        <h2>Click to start</h2>
+    </header>
+
+    <div class="page-contaner">
+        <div class="page-content">
+            <div class="highscore-cont">
+                <div>
+                    <h3>Highscore:</h3>
+                    <table id="tbl">
+                        <thead>
+                            <tr>
+                                <td>Navn:</td>
+                                <td>Score:</td>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tBdy">
+                            <tr>
+                                <td>SASS</td>
+                                <td>96</td>
+                            </tr>
+
+                            <tr>
+                                <td>ASS</td>
+                                <td>12</td>
+                            </tr>
+
+                            <tr>
+                                <td>Jon</td>
+                                <td>50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div id="map" class="map">
+                <svg id="papir">
+                    <!--<circle id="coin" cx="285" cy="305" r="17"
+                    fill="yellow" stroke-width="1.5" stroke="black"></circle> -->
+
+                    <g id="gMap">
+
+                    </g>
+                </svg>
+            </div>
+
+            <div>
+                <section>
+
+                    <div>
+
+                        <h3>Instruks:</h3>
+                        <p>Bruk musa til å berøre mynten, men unngå de grå rutene!</p>
+                        <p>Powerups vil spawne over tid.</p>
+                        <p>Se om du klarer å skaffe alle 100!</p>
+                    </div>
+
+                    <div class="box-info-cont">
+                        <div>
+                            <span>Myntene blir større</span>
+                            <span class="blue box"></span>
+                        </div>
+                        <div>
+                            <span>Trekker fra 7 mynter</span>
+                            <span class="red box"></span>
+                        </div>
+
+                        <div>
+                            <span>Gir deg 5 mynter</span>
+                            <span class="orange box"></span>
+                        </div>
+                        <div>
+                            <span>Firkantene blir mindre</span>
+                            <span class="green box"></span>
+                        </div>
+                        <div>
+                            <span>Flytter mynten til tilfeldig posisjon</span>
+                            <span class="pink box"></span>
+                        </div>
+
+
+                    </div>
+
+                </section>
+            </div>
+        </div>
+
+        <div class="bottom-cont">
+            <form class="form-submit">
+                <input id="nickInp" type="text" placeholder="Nickname" min="1" max="12" required>
+                <button id="regBtn" type="submit">Submit</button>
+            </form>
+
+            <div>
+                <div class="status-info">
+                    <span>Coins: <span id="antCoins">0</span></span>
+                    <!--<p>XP: <span>{Antall xp}</span>/600</p>-->
+                </div>
+
+                <div class="btn-menu">
+                    <button id="musicBtn" onclick="changeMusic(this)">Music: ON</button>
+                    <button id="sfxBtn" onclick="changeSFX(this)">SFX: ON</button>
+                </div>
+            </div>
+
+
+            <div>
+                <!--
+                <p>Disclaimer to soundeffects and theme:</p>
+                <p>Themesong: Hyper street fighter II - Guile's theme</p>
+                <p>Code, design and programming: Thomas Andrè</p>
+                <br>
+                -->
+                <span class="version">Version 3.2</span>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+<script src="../static/js/main.js">
+
+</script>
+</body>
+</html>
