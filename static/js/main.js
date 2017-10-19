@@ -439,12 +439,9 @@ function loseLife() {
 
     lives--;
 
-    if (lives < 0) {
-        lives = 0;
-    }
-
-    if (lives === 0) {
+    if (lives <= 0) {
         exitGame();
+        antLives.innerHTML = 0;
     }
 
     antLives.innerHTML = lives;
