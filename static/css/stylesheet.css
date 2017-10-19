@@ -79,6 +79,14 @@ button {
 }
 
 /*
+    Coin
+ */
+
+#coin {
+    z-index: 200;
+}
+
+/*
     Highscore table
  */
 .highscore-cont {

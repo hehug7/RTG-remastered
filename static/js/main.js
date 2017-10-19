@@ -33,10 +33,10 @@ let collectedCoins = 0;
 // Obstacle status
 let obstacleRadius = 50;
 
-// powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink
-let powerupArray = [];
-let powerType = ["small", "big", "bonus", "loss", "change"];
-let powerColor = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
+// powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink]
+let powerUpArray = [];
+let powerUpTypes = ["small", "big", "bonus", "loss", "change"];
+let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
 
 /* gamemodes:
@@ -155,20 +155,20 @@ regBtn.onclick = function(event) {
 
 // Lager powerups utifra lister som inneholder ulike farger og typer
 function createPowerUps() {
-    for (let i = 0; i < powerType.length; i++) {
+    for (let i = 0; i < powerUpTypes.length; i++) {
         let powerups = {
-            name: powerType[i],
-            color: powerColor[i],
+            name: powerUpTypes[i],
+            color: powerUpColors[i],
             idx: i,
         };
 
-        powerupArray.push(powerups);
+        powerUpArray.push(powerups);
     }
 }
 
 function spawnPowerUp() {
-    let powerType = Math.floor((Math.random() * 5));
-    let powerUp = powerupArray[powerType];
+    let powerUpType = Math.floor((Math.random() * 5));
+    let powerUp = powerUpArray[powerUpType];
     let xPos = getRandomPos(13);
     let yPos = getRandomPos(13);
 
@@ -187,7 +187,13 @@ function spawnPowerUp() {
 }
 
 function activatePowerUp(evt) {
-    console.log(evt.target)
+    let touchedPowup = evt.target;
+    let idx = powerUpColors.indexOf(touchedPowup.getAttribute("fill"));
+
+
+
+    gMap.removeChild(touchedPowup)
+
 
 }
 
