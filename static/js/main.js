@@ -158,14 +158,18 @@ function winGame() {
     title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
 }
 
-map.onclick = function startGame() {
+function startGame() {
     // If game has already started
     if (mode === 2) {
         return;
     }
 
     initGame();
-};
+}
+
+map.onclick = startGame;
+title1.onclick = startGame;
+title2.onclick = startGame;
 
 map.onmouseleave = exitGame;
 
@@ -317,7 +321,7 @@ function coinTouched(evt) {
     createObstacle(evt);
     changeCoinPos(evt);
     addAndUpdateScore(1);
-    coinSound.play();
+    playAudio(coinSound);
 }
 
 // Endrer posisjonen til mynten
