@@ -71,12 +71,15 @@ let nickInp = document.getElementById("nickInp");
 
 // Status
 let antCoins = document.getElementById("antCoins");
-let antLives = document.getElementById("antLives");
 
 let collectedCoins = 0;
 let winScore = 100;
+
+// Lives
+let antLives = document.getElementById("antLives");
 let amountOfLives = 3;
 let lives;
+let livesColors = ["red", "red", "orange", "yellow"];
 
 // Radius
 let obstacleRadius = 50;
@@ -444,9 +447,11 @@ function loseLife() {
         antLives.innerHTML = 0;
     }
 
+    antLives.parentNode.style.color = livesColors[lives];
     antLives.innerHTML = lives;
 }
 
 function updateHighscore() {
+
 
 }
