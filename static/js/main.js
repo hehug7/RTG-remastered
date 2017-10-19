@@ -56,9 +56,13 @@ let regBtn = document.getElementById("regBtn");
 let tbody = document.getElementById("tBdy");
 let nickInp = document.getElementById("nickInp");
 
-// CoinsStatus
+// Status
 let antCoins = document.getElementById("antCoins");
 let collectedCoins = 0;
+let winScore = 100;
+
+// PowerUp Spawn Interval
+let pusi = 10;
 
 // Radius
 let obstacleRadius = 50;
@@ -113,7 +117,7 @@ function initGame() {
     }
 
     // Spawn powerup
-    powerUpSpawner = setInterval(spawnPowerUp, 3000)
+    powerUpSpawner = setInterval(spawnPowerUp, pusi/1000);
 
     // Audio
     playAudio(themeSong);
@@ -138,7 +142,8 @@ function exitGame() {
 }
 
 function winGame() {
-    exitGame()
+    playAudio(winSound);
+    exitGame();
     title1.innerHTML = "GRATULERER DU VANT!";
     title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
 }
@@ -178,7 +183,7 @@ function isDuplicateName(name) {
 function addAndUpdateScore(amount) {
     let sum = collectedCoins += amount;
     sum < 0 ? antCoins.innerHTML = 0 : antCoins.innerHTML = sum;
-    if (sum >= 5) {
+    if (sum >= winScore) {
         winGame();
     }
 }
