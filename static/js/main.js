@@ -8,7 +8,6 @@
     Highscoretabell
         TODO mulighet til å lagre highscore lokalt
         Localstorage
-        TODO oppdaterer scoren om samme navn blir registrert
 
     Powerups
         TODO Legge til random powerup (hvit - alle farger)
@@ -25,9 +24,8 @@
             ++
 
     FIXING:
-        TODO fikse powerup text
+        TODO fikse powerup text (litt uklart hva det betydde)
         TODO fikse onclick to start (not on the text) (?)
-        TODO Fikse css (nederste linje av blokker slik at midterste blir riktig
         TODO fikse at obstacle forsvinner eller skifter farge når du berører det
     Fikse overlapping med powerups, obstacle og coins (z-index)
 
@@ -351,6 +349,9 @@ function activatePowerUp(evt) {
 
 }
 
+/**
+ * Lager mynten med gitte attributter
+ */
 function createCoin() {
     let coin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     coin.addEventListener("mouseover", coinTouched);
@@ -370,10 +371,20 @@ function createCoin() {
     insertAfter(coin, refNode);
 }
 
+/**
+ * Brukes til å legge coin på toppen av alt.
+ * @param newNode
+ * @param referenceNode
+ */
 function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
+/**
+ * Når mynten berører får den en ny posisjon og det lages en ny obstacle
+ * Oppdaterer poengsummen med +1
+ * @param evt
+ */
 function coinTouched(evt) {
     createObstacle(evt);
     changeCoinPos(evt);
@@ -384,7 +395,10 @@ function coinTouched(evt) {
     }
 }
 
-// Endrer posisjonen til mynten
+/**
+ * Endrer posisjonen til coin objektet
+ * @param evt
+ */
 function changeCoinPos(evt) {
     let coin = document.getElementById("coin");
 
@@ -404,16 +418,33 @@ function changeCoinPos(evt) {
     coin.setAttribute("cy", rcy);
 }
 
+/**
+ * Reseter posisjonen til coin objektet
+ * @param coin
+ */
 function resetCoin(coin) {
     coin.setAttribute("cx", "200");
     coin.setAttribute("cy", "200");
 
 }
 
+/**
+ * returnerer et tilfeldig tall innenfor spillbrettet
+ * @param radius
+ * @returns {*}
+ */
 function getRandomPos(radius) {
     return Math.floor(Math.random() * (400-radius)) + radius;
 }
 
+/**
+ * Funksjon som sjekker for overlap mellom mus og objektet med radius, x og y koordinater
+ * @param evt
+ * @param radius
+ * @param coordx
+ * @param coordy
+ * @returns {boolean}
+ */
 function isOverlapping(evt, radius, coordx, coordy) {
     let mouseX = evt.clientX;
     let mouseY = evt.clientY;
@@ -429,6 +460,10 @@ function isOverlapping(evt, radius, coordx, coordy) {
     return (mouseY + radius + 2 <= coordy && mouseY - radius - 2 >= coordy);
 }
 
+/**
+ * Lag de grå firkantene som obstacles
+ * @param evt
+ */
 function createObstacle(evt) {
     let xPos = getRandomPos(obstacleRadius/2);
     let yPos = getRandomPos(obstacleRadius/2);
@@ -454,22 +489,40 @@ function createObstacle(evt) {
     gMap.insertBefore(obs, document.getElementById("coin"));
 }
 
+/**
+ * Setter elementene til et audio objekt
+ * @param filename
+ * @param type
+ * @returns {Audio}
+ */
 function setAudioElem(filename, type) {
     return type === 'sfx' ?
         new Audio('../static/audio/sfx/' + filename) :
         new Audio('../static/audio/themes/' + filename);
 }
 
+/**
+ * Spill av lyd
+ * @param elem
+ */
 function playAudio(elem) {
     stopAudio(elem);
     elem.play();
 }
 
+/**
+ * Stop å spill lyd
+ * @param elem
+ */
 function stopAudio(elem) {
     elem.pause();
     elem.currentTime = 0;
 }
 
+/**
+ * Spiller lyd holder øye med antall liv og avslutter spillet ved liv = 0
+ * Endrer farge på lives teksten
+ */
 function loseLife() {
     playAudio(loseLifeSound);
 
@@ -590,10 +643,17 @@ function createRow(td1, td2) {
     return tr;
 }
 
+/**
+ * Load highscore from local disk
+ */
 function loadHighScore() {
-    localStorage.getItem("highscores");
+    highscores = localStorage.getItem("highscores");
 }
 
+/**
+ * Save highscores on local disk
+ * @param highscores ([[name, score], ...])
+ */
 function saveHighScore(highscores) {
     localStorage.setItem("highscores", highscores);
 }
