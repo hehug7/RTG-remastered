@@ -204,7 +204,7 @@ title1.onclick = startGame;
 title2.onclick = startGame;
 map.onmouseleave = exitGame;
 
-loadHighScore();
+loadHighScore(); // denne setter highscore til noe annet enn array
 
 /**
  * Togglebutton for å skru av og på SFX
@@ -573,7 +573,6 @@ regBtn.onclick = function(event) {
 
     tbody.appendChild(tr);
     highscores.push([name, amountC]);
-
     sortHighscore(highscores);
 };
 
@@ -604,6 +603,8 @@ function sortHighscore(highscores) {
         tbody.appendChild(createRow(sortedList[i][0], sortedList[i][1]));
     }
 
+    console.log(sortedList)
+    saveHighScore(sortedList);
 }
 
 /**
@@ -645,9 +646,15 @@ function createRow(td1, td2) {
 
 /**
  * Load highscore from local disk
+ *
  */
+
 function loadHighScore() {
-    highscores = localStorage.getItem("highscores");
+    highscores = JSON.parse(localStorage.getItem("hs"));
+    if (highscores === null) {
+        highscores = [];
+    }
+    sortHighscore(highscores);
 }
 
 /**
@@ -655,5 +662,16 @@ function loadHighScore() {
  * @param highscores ([[name, score], ...])
  */
 function saveHighScore(highscores) {
-    localStorage.setItem("highscores", highscores);
+    localStorage.setItem("hs", JSON.stringify(highscores));
+}
+
+/**
+ * Deletes local storage
+ * Rester highscoretabellen til å være tom
+ */
+function resetHighscore() {
+    let usr = prompt("Skriv 'reset' for å resete highscoretabellen");
+    if (usr === "reset") {
+        localStorage.clear();
+    }
 }
