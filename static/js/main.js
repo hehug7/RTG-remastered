@@ -106,6 +106,9 @@ let winSound = setAudioElem('winSound.mp3', 'sfx');
 let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
 let loseLifeSound = setAudioElem('lose_life.mp3', 'sfx');
 
+/**
+ * Setter i gang spillet med modus og reseter attributter
+ */
 function initGame() {
     // creates powerups
     createPowerUps();
@@ -149,6 +152,9 @@ function initGame() {
     }
 }
 
+/**
+ * Avslutter spillet og reseter tilstanden til spillet
+ */
 function exitGame() {
     // Vis titler
     titles.setAttribute("class", "show");
@@ -173,6 +179,9 @@ function exitGame() {
     mode = modes[0];
 }
 
+/**
+ * Spiller av vinnmusikk og avslutter spillet
+ */
 function winGame() {
     if (sfx) {
         playAudio(winSound);
@@ -182,6 +191,9 @@ function winGame() {
     title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
 }
 
+/**
+ * Setter spillmodus til at spillet har startet
+ */
 function startGame() {
     // If game has already started
     if (mode === 2) {
@@ -197,7 +209,11 @@ title2.onclick = startGame;
 
 map.onmouseleave = exitGame;
 
-function changeSFX(sfxBtn) {
+/**
+ * Togglebutton for å skru av og på SFX
+ * @param sfxBtn
+ */
+function toggleSFX(sfxBtn) {
     stopAudio(gameOverSound);
     stopAudio(winSound);
     stopAudio(powerUpSound);
@@ -207,15 +223,23 @@ function changeSFX(sfxBtn) {
     sfx = !sfx;
 }
 
-function changeMusic(musicBtn) {
+/**
+ * Togglebutton for å skru av og på musikk
+ * @param musicBtn
+ */
+function toggleMusic(musicBtn) {
     stopAudio(themeSong);
 
     music ? musicBtn.innerHTML = "Music: OFF" : musicBtn.innerHTML = "Music: ON";
     music = !music;
 }
 
+/**
+ * Sjekker om navnet som registreres eksisterer i highscoretabellen.
+ * @param name
+ * @returns {boolean}
+ */
 function isDuplicateName(name) {
-
     let tdArr = document.getElementsByTagName("td");
     for (let i = 0; i < tdArr.length; i++) {
         if (tdArr[i].innerHTML === name) {
@@ -225,6 +249,11 @@ function isDuplicateName(name) {
     return false;
 }
 
+/**
+ * Oppdaterer poengsummen ut ifra hvor mange mynter brukeren har samlet
+ * Sjekker om brukeren har vunnet
+ * @param amount
+ */
 function addAndUpdateScore(amount) {
     let sum = collectedCoins += amount;
     sum < 0 ? antCoins.innerHTML = 0 : antCoins.innerHTML = sum;
@@ -233,7 +262,9 @@ function addAndUpdateScore(amount) {
     }
 }
 
-// Lager powerups utifra lister som inneholder ulike farger og typer
+/**
+ * Lager powerupobjekter som inneholder farger og type
+ */
 function createPowerUps() {
     for (let i = 0; i < powerUpTypes.length; i++) {
         let powerups = {
@@ -246,6 +277,10 @@ function createPowerUps() {
     }
 }
 
+/**
+ * Gjennoppretter en powerup som bruker objektlista fra createPowerUps()
+ * Setter tilfeldig type og tilsvarende farge med gitte attributter
+ */
 function spawnPowerUp() {
     let powerUpType = Math.floor((Math.random() * 5));
     let powerUp = powerUpArray[powerUpType];
@@ -266,6 +301,11 @@ function spawnPowerUp() {
 
 }
 
+/**
+ * Funksjon for hva som skjer når musa berører powerup
+ * Gir effekt ut ifra type og fjerner powerupen
+ * @param evt
+ */
 function activatePowerUp(evt) {
     let touchedPowup = evt.target;
     let idx = powerUpColors.indexOf(touchedPowup.getAttribute("fill"));
