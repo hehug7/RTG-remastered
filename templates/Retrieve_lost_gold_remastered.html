@@ -14,31 +14,52 @@
 
     <div class="page-contaner">
         <div class="page-content">
-            <div class="highscore-cont">
-                <div>
-                    <h3>Highscore:</h3>
-                    <table id="tbl">
-                        <thead>
+            <div class="sub-1">
+                <div class="highscore-cont">
+                    <div>
+                        <h3>Highscore:</h3>
+                        <table id="tbl">
+                            <thead>
                             <tr>
                                 <td>Navn:</td>
                                 <td>Score:</td>
                             </tr>
-                        </thead>
+                            </thead>
 
-                        <tbody id="tBdy">
+                            <tbody id="tBdy">
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <form class="form-submit">
+                    <input id="nickInp" type="text" placeholder="Nickname" min="1" max="12" required>
+                    <button id="regBtn" type="submit">Submit</button>
+                </form>
             </div>
 
 
-            <div id="map" class="map" oncontextmenu="exitGame()">
-                <svg id="papir">
-                    <g id="gMap">
+            <div class="sub-2">
+                <div id="map" class="map" oncontextmenu="exitGame()">
+                    <svg id="papir">
+                        <g id="gMap">
 
-                    </g>
-                </svg>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="status-panel">
+                    <div class="status-info">
+                        <span>Coins: <span id="antCoins">0</span></span>
+                        <span>Lives: <span id="antLives">3</span></span>
+                    </div>
+
+                    <div class="btn-menu">
+                        <button id="musicBtn" onclick="changeMusic(this)">Music: ON</button>
+                        <button id="sfxBtn" onclick="changeSFX(this)">SFX: ON</button>
+                    </div>
+                </div>
             </div>
 
             <div>
@@ -74,33 +95,13 @@
                             <span class="pink box"></span>
                         </div>
 
+                        <div>
+                            <span class="version">Version 3.7</span>
+                        </div>
+
                     </div>
                 </section>
             </div>
-        </div>
-
-        <div class="bottom-cont">
-            <form class="form-submit">
-                <input id="nickInp" type="text" placeholder="Nickname" min="1" max="12" required>
-                <button id="regBtn" type="submit">Submit</button>
-            </form>
-
-            <div>
-                <div class="status-info">
-                    <span>Coins: <span id="antCoins">0</span></span>
-                    <span>Lives: <span id="antLives">3</span></span>
-                </div>
-
-                <div class="btn-menu">
-                    <button id="musicBtn" onclick="changeMusic(this)">Music: ON</button>
-                    <button id="sfxBtn" onclick="changeSFX(this)">SFX: ON</button>
-                </div>
-            </div>
-
-            <div>
-                <span class="version">Version 3.7</span>
-            </div>
-
         </div>
     </div>
 

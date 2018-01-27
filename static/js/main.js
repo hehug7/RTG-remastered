@@ -29,8 +29,7 @@
     FIXING:
         TODO fikse powerup text
         TODO fikse onclick to start (not on the text) (?)
-        TODO fikse avslutt spill slik at powerups ikke spawner etter slutt
-        TODO Fikse css
+        TODO Fikse css (nederste linje av blokker slik at midterste blir riktig
         TODO fikse at obstacle forsvinner eller skifter farge når du berører det
     Fikse overlapping med powerups, obstacle og coins (z-index)
 
