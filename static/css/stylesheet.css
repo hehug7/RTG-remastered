@@ -147,6 +147,9 @@ table tr td, h3 {
 }
 
 .btn-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     margin-left: auto;
 }
 
