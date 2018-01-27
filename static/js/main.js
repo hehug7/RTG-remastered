@@ -5,10 +5,6 @@
         TODO Etablere spillgrid
     Etabler spillgrid 20 * 20 ? /50/100
 
-    Highscoretabell
-        TODO mulighet til å lagre highscore lokalt
-        Localstorage
-
     Powerups
         TODO Legge til random powerup (hvit - alle farger)
         Velger random en funksjon fra de andre
@@ -79,7 +75,7 @@ let obstacleRadius = 50;
 let coinRadius = 17;
 
 // PowerUp Spawn Interval
-let pusi = 5;
+let pusi = 7;
 let powerUpInterval;
 
 // powerups [0: green, : blue, 2: orange, 3: red, 4: pink]
@@ -165,7 +161,7 @@ function exitGame() {
     clearInterval(powerUpInterval);
 
     // Audio
-    if (sfx && mode === 1) {
+    if (sfx && mode === 1 && antCoins.innerHTML < 100) {
         gameOverSound.currentTime = 2;
         playAudio(gameOverSound);
     }
@@ -330,7 +326,7 @@ function activatePowerUp(evt) {
             coinRadius += 2;
             break;
         case 2:
-            addAndUpdateScore(3);
+            addAndUpdateScore(7);
             break;
         case 3:
             addAndUpdateScore(-5);
