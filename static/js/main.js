@@ -599,7 +599,6 @@ function sortHighscore(highscores) {
         tbody.appendChild(createRow(sortedList[i][0], sortedList[i][1]));
     }
 
-    console.log(sortedList)
     saveHighScore(sortedList);
 }
 
