@@ -143,13 +143,14 @@ table tr td, h3 {
 .btn-menu, .status-info {
     display: flex;
     flex-direction: column;
+    min-width: 175px;
 }
 
 .btn-menu {
     margin-left: auto;
 }
 
-.btn-menu button {
+.btn {
     margin-bottom: 0.5em;
     height: 4em;
     width: 8em;
@@ -163,6 +164,24 @@ table tr td, h3 {
     font-weight:bold;
     cursor:pointer;
     text-decoration:none;
+}
+.btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 0 #666;
+    transform:translate(4px,4px);
+}
+
+.small {
+    height: 4em;
+    width: 4em;
+    max-width:4em;
+    max-height:4em;
+    font-size: 1em;
+}
+
+.arrow-cont {
+    display: flex;
+    justify-content: space-around;
 }
 
 .version {

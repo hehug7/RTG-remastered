@@ -52,12 +52,20 @@
                 <div class="status-panel">
                     <div class="status-info">
                         <span>Coins: <span id="antCoins">0</span></span>
-                        <span>Lives: <span id="antLives">3</span></span>
+                        <span>Lives: <span id="antLives">0</span></span>
+                        <div>
+                            <span id="spnGamemode" class="spn-gm"></span>
+                        </div>
+                        <div class="arrow-cont">
+                            <button class="btn small" onclick="prevGamemode()"><</button>
+                            <button class="btn small" onclick="nextGamemode()">></button>
+                        </div>
                     </div>
 
+
                     <div class="btn-menu">
-                        <button id="musicBtn" onclick="toggleMusic(this)">Music: ON</button>
-                        <button id="sfxBtn" onclick="toggleSFX(this)">SFX: ON</button>
+                        <button id="musicBtn" class="btn" onclick="toggleMusic(this)">Music: ON</button>
+                        <button id="sfxBtn" class="btn" onclick="toggleSFX(this)">SFX: ON</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +104,7 @@
                         </div>
 
                         <div>
-                            <span class="version">Version 1.4.0</span>
+                            <span class="version">Version 1.5.1</span>
                         </div>
                     </div>
                 </section>

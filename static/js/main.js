@@ -2,18 +2,9 @@
     Ideer:
         prøveteste tidsinterval mellom powerups og maxcoins avhengig av lvl.
 
-        TODO Etablere spillgrid
-    Etabler spillgrid 20 * 20 ? /50/100
-
-    Powerups
-        TODO Legge til random powerup (hvit - alle farger)
-        Velger random en funksjon fra de andre
-        TODO legger til en lydsfx for hver powerup
-
     On completion
-        TODO UNLOCKABLES: lage en rainbow colored circle(coin)
         TODO lage lvl 2 hvor du maa samle flere coins
-        TODO gamemodes
+        TODO gamemodes med en knapp til å bytte i mellom
             Grey obstacles in random sizes each time.
             the powerups are your enemy?
             hardcore: du har bare ett liv
@@ -23,65 +14,61 @@
         TODO fikse powerup text (litt uklart hva det betydde)
         TODO fikse onclick to start (not on the text) (?)
         TODO fikse at obstacle forsvinner eller skifter farge når du berører det
-    Fikse overlapping med powerups, obstacle og coins (z-index)
-
-    gmap:
-    gray
-    gray (insertbefore elem)
-    elem : element som skiller powerup og gray boxes
-    powerup
-    powerup
-    powerup (insertbefore coin)
-    coin
+        TODO fikse slik at music og SFX knapp legger seg til høyre i containeren
  */
 
 /* gamemodes:
     0: startup menu,
-    1: game
-    2: gamemode??
+    1: easy game 5 lives
+    2: normal game 3 lives
+    3: Hard 2 lives
+    4: ultra HARDCORE 1 life
 */
+const spnGamemode = document.getElementById("spnGamemode");
+const modes = [0, 1, 2, 3];
+let gameIsRunning = false;
 
-let modes = [0, 1];
-let mode = modes[0];
+// Dette for å initialisere alle span og andre tekstfelt for UX;
+let mode = 1;
 
 // game map
-let map = document.getElementById("map");
-let gMap = document.getElementById("gMap");
+const map = document.getElementById("map");
+const gMap = document.getElementById("gMap");
 
 // titles
-let titles = document.getElementById("titles");
-let title1 = document.getElementById("title1");
-let title2 = document.getElementById("title2");
+const titles = document.getElementById("titles");
+const title1 = document.getElementById("title1");
+const title2 = document.getElementById("title2");
 
 // Handles submitting highscore
-let regBtn = document.getElementById("regBtn");
-let tbody = document.getElementById("tBdy");
-let nickInp = document.getElementById("nickInp");
+const regBtn = document.getElementById("regBtn");
+const tbody = document.getElementById("tBdy");
+const nickInp = document.getElementById("nickInp");
 
 // Status
-let antCoins = document.getElementById("antCoins");
+const antCoins = document.getElementById("antCoins");
 
 let collectedCoins = 0;
 let winScore = 100;
 
 // Lives
-let antLives = document.getElementById("antLives");
+const antLives = document.getElementById("antLives");
 let amountOfLives = 3;
 let lives;
-let livesColors = ["red", "orange", "yellow", "black"];
+let livesColors = ["#FF0000", "#FD8F00", "#FFD500", "#000000"];
 
 // Radius
 let obstacleRadius = 50;
 let coinRadius = 17;
 
 // PowerUp Spawn Interval
-let pusi = 7;
+const pusi = 6;
 let powerUpInterval;
 
-// powerups [0: green, : blue, 2: orange, 3: red, 4: pink]
+// powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink, 5: white]
 let powerUpArray = [];
-let powerUpTypes = ["small", "big", "bonus", "loss", "change"];
-let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
+const powerUpTypes = ["small", "big", "bonus", "loss", "change", "random"];
+const powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8", "#FFFFFF"];
 
 // highscore
 let highscores = [];
@@ -91,12 +78,15 @@ let highscoreRegistered = false;
 let sfx = true;
 let music = true;
 
-let coinSound = setAudioElem('coinsound.mp3', 'sfx');
-let gameOverSound = setAudioElem('gameover.mp3', 'sfx');
-let powerUpSound = setAudioElem('powerup.mp3', 'sfx');
-let winSound = setAudioElem('winSound.mp3', 'sfx');
-let themeSong = setAudioElem('StreetFighter.mp3', 'themes');
-let loseLifeSound = setAudioElem('lose_life.mp3', 'sfx');
+const coinSound = setAudioElem('coinsound.mp3', 'sfx');
+const gameOverSound = setAudioElem('gameover.mp3', 'sfx');
+const powerUpSound = setAudioElem('powerup.mp3', 'sfx');
+const winSound = setAudioElem('winSound.mp3', 'sfx');
+const loseLifeSound = setAudioElem('lose_life.mp3', 'sfx');
+const themeSong = setAudioElem('StreetFighter.mp3', 'themes');
+
+//Dette for å initialisere tekstfelt
+prevGamemode();
 
 /**
  * Setter i gang spillet med modus og reseter attributter
@@ -105,7 +95,7 @@ function initGame() {
     // creates powerups
     createPowerUps();
 
-    mode = modes[1];
+    gameIsRunning = true;
 
     // resets map
     gMap.innerHTML = "";
@@ -120,6 +110,7 @@ function initGame() {
 
     lives = amountOfLives;
     antLives.innerHTML = lives;
+    antLives.parentNode.style.color = livesColors[livesColors.length-1];
 
     // Resets highscoreregister
     highscoreRegistered = false;
@@ -151,9 +142,6 @@ function exitGame() {
     // Vis titler
     titles.setAttribute("class", "show");
 
-    // Reset lives color
-    antLives.parentNode.style.color = livesColors[livesColors.length-1];
-
     // reseter mappet
     gMap.innerHTML = "";
 
@@ -161,14 +149,13 @@ function exitGame() {
     clearInterval(powerUpInterval);
 
     // Audio
-    if (sfx && mode === 1 && antCoins.innerHTML < 100) {
+    if (sfx && gameIsRunning && antCoins.innerHTML < 100) {
         gameOverSound.currentTime = 2;
         playAudio(gameOverSound);
     }
     stopAudio(themeSong);
 
-    // game is off
-    mode = modes[0];
+    gameIsRunning = false;
 }
 
 /**
@@ -178,6 +165,7 @@ function winGame() {
     if (sfx) {
         playAudio(winSound);
     }
+
     exitGame();
     title1.innerHTML = "GRATULERER DU VANT!";
     title2.innerHTML = "Skriv inn brukernavn <br> og <br> registrer din highscore!";
@@ -187,12 +175,9 @@ function winGame() {
  * Setter spillmodus til at spillet har startet
  */
 function startGame() {
-    // If game has already started
-    if (mode === 2) {
-        return;
+    if (!gameIsRunning) {
+        initGame();
     }
-
-    initGame();
 }
 
 map.onclick = startGame;
@@ -274,13 +259,12 @@ function addAndUpdateScore(amount) {
  */
 function createPowerUps() {
     for (let i = 0; i < powerUpTypes.length; i++) {
-        let powerups = {
+        let powerUp = {
             name: powerUpTypes[i],
             color: powerUpColors[i],
-            idx: i,
         };
 
-        powerUpArray.push(powerups);
+        powerUpArray.push(powerUp);
     }
 }
 
@@ -289,7 +273,7 @@ function createPowerUps() {
  * Setter tilfeldig type og tilsvarende farge med gitte attributter
  */
 function spawnPowerUp() {
-    let powerUpType = Math.floor((Math.random() * 5));
+    let powerUpType = Math.floor((Math.random() * powerUpTypes.length));
     let powerUp = powerUpArray[powerUpType];
     let xPos = getRandomPos(13);
     let yPos = getRandomPos(13);
@@ -311,25 +295,37 @@ function spawnPowerUp() {
 /**
  * Funksjon for hva som skjer når musa berører powerup
  * Gir effekt ut ifra type og fjerner powerupen
+ * Den hvite (idx === 5) gir en tilfeldig en
  * @param evt
  */
 function activatePowerUp(evt) {
-    let touchedPowup = evt.target;
-    let idx = powerUpColors.indexOf(touchedPowup.getAttribute("fill"));
+    let touchedPowUp = evt.target;
+    let idx = powerUpColors.indexOf(touchedPowUp.getAttribute("fill"));
+    if (idx === 5) {
+        idx = Math.floor(Math.random() * powerUpTypes.length - 1);
+    }
 
-    // ["obstacle gets smaller", "coin gets bigger", "bonuscoins", "losing coins", "move coin"];
+    /**
+     * Activate powerup type based on index
+     * 0: "obstacle gets smaller"
+     * 1: "coin gets bigger"
+     * 2: "bonuscoins"
+     * 3: "losing coins"
+     * 4: "move coin"
+     * @param idx
+     */
     switch(idx) {
         case 0:
-            obstacleRadius-= 3;
+            obstacleRadius -= 3;
             break;
         case 1:
             coinRadius += 2;
             break;
         case 2:
-            addAndUpdateScore(7);
+            addAndUpdateScore(5);
             break;
         case 3:
-            addAndUpdateScore(-5);
+            addAndUpdateScore(-7);
             break;
         case 4:
             changeCoinPos(evt);
@@ -340,9 +336,7 @@ function activatePowerUp(evt) {
         playAudio(powerUpSound);
     }
 
-    gMap.removeChild(touchedPowup)
-
-
+    gMap.removeChild(touchedPowUp)
 }
 
 /**
@@ -520,6 +514,7 @@ function stopAudio(elem) {
  * Endrer farge på lives teksten
  */
 function loseLife() {
+
     playAudio(loseLifeSound);
 
     lives--;
@@ -640,8 +635,61 @@ function createRow(td1, td2) {
 }
 
 /**
+ * Bytter til neste gamemode
+ */
+function nextGamemode() {
+    mode++;
+    if (mode >= modes.length) {
+        mode = 0;
+    }
+
+    setGamemodeState(mode);
+}
+
+/**
+ * Bytter til forrige gamemode
+ */
+function prevGamemode() {
+    mode--;
+    if (mode < 0) {
+        mode = modes.length-1;
+    }
+
+    setGamemodeState(mode);
+}
+
+/**
+ * Setter statusen til spillet avhengig av valgt gamemode
+ * @param mode
+ */
+function setGamemodeState(mode) {
+    antLives.parentNode.style.color = livesColors[livesColors.length-1];
+    switch(mode) {
+        case 0:
+            spnGamemode.innerHTML = "Gamemode: EZ";
+            antLives.innerHTML = 5;
+            amountOfLives = 5;
+            break;
+        case 1:
+            spnGamemode.innerHTML = "Gamemode: Normal";
+            antLives.innerHTML = 3;
+            amountOfLives = 3;
+            break;
+        case 2:
+            spnGamemode.innerHTML = "Gamemode: Hard";
+            antLives.innerHTML = 2;
+            amountOfLives = 2;
+            break;
+        case 3:
+            spnGamemode.innerHTML = "Gamemode: HARDCORE";
+            antLives.innerHTML = 1;
+            amountOfLives = 1;
+            break;
+    }
+}
+
+/**
  * Load highscore from local disk
- *
  */
 
 function loadHighScore() {
