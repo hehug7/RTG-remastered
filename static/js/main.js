@@ -93,6 +93,7 @@ let powerUpSpawner;
 
 // highscore
 let highscores = [];
+let highscoreRegistered = false;
 
 // Audio elements
 let sfx = true;
@@ -124,6 +125,9 @@ function initGame() {
 
     lives = amountOfLives;
     antLives.innerHTML = lives;
+
+    // Resets highscoreregister
+    highscoreRegistered = false;
 
     // remove titles
     if (titles.className !== "hidden") {
@@ -427,8 +431,18 @@ function loseLife() {
     antLives.innerHTML = lives;
 }
 
+/**
+ * Registrerknappen for å lagre highscoren
+ * Sjekker for invalid verdier og duplikater.
+ * Lager en ny rad med verdi og navn og oppdaterer highscorelista
+ * @param event
+ */
 regBtn.onclick = function(event) {
     event.preventDefault();
+
+    if (highscoreRegistered) {
+        return;
+    }
 
     let name = nickInp.value;
 
@@ -442,45 +456,58 @@ regBtn.onclick = function(event) {
     }
 
     // Lager highscore rad for navn og score
-    let tr = document.createElement("tr");
-    let td = document.createElement("td");
-    td.innerHTML = name;
-    tr.appendChild(td);
+    let tr = createRow(name, antCoins.innerHTML);
 
-    td = document.createElement("td");
-    td.innerHTML = antCoins.innerHTML;
-    tr.appendChild(td);
+    tbody.appendChild(tr);
+    highscores.push([name, antCoins.innerHTML]);
 
-    //tbody.appendChild(tr);
+    nickInp.value = "";
 
-    updateHighscore(tr);
+    highscoreRegistered = true;
+
+    sortHighscore(highscores);
 };
 
-function updateHighscore(tr) {
-
+/**
+ * Tar inn en liste med highscore rader [[name, antCoins], ...]
+ * og legger disse til i highscorelista i tillegg til de som er
+ * i sortert rekkefølge
+ * @param highscores
+ */
+function sortHighscore(highscores) {
     let sortedList = [];
+    let tempHS = [];
+    let len = highscores.length;
 
-    for (let elem in highscores) {
-        sortedList.push(elem)
+    for (let i = 0; i < len; i++) {
+        tempHS[i] = highscores[i];
     }
-
-    sortedList.push(tr);
 
     tbody.innerHTML = "";
-    highscores = [];
-    for (let i = 0; i < sortedList.length; i++) {
-        let maxElem = sortedList[findMaxIdx(sortedList)];
-        highscores.push(maxElem);
-        tbody.appendChild(maxElem);
+
+    for (let i = 0; i < len; i++) {
+        let maxIdx = findMaxIdx(tempHS);
+        sortedList.push(tempHS[maxIdx]);
+        tempHS.splice(maxIdx,1);
     }
+
+    for (let i = 0; i < len; i++) {
+        tbody.appendChild(createRow(sortedList[i][0], sortedList[i][1]));
+    }
+
 }
 
+/**
+ * Funksjon som finner posisjonen til den største verdien
+ * @param list [[String, number]...]
+ * @returns {number}
+ */
 function findMaxIdx(list) {
     let max = -1;
     let idx = -1;
 
     for (let i = 0; i < list.length; i++) {
-        let cur = parseInt(list[i].children[1].innerHTML);
+        let cur = parseInt(list[i][1]);
         if (cur > max) {
             max = cur;
             idx = i;
@@ -488,4 +515,49 @@ function findMaxIdx(list) {
     }
 
     return idx;
+}
+
+/**
+ * Lager en rad med to kolonner med verdiene td1 og td2
+ * @param td1
+ * @param td2
+ * @returns {Element}
+ */
+function createRow(td1, td2) {
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+    td.innerHTML = td1;
+    tr.appendChild(td);
+    td = document.createElement("td");
+    td.innerHTML = td2;
+    tr.appendChild(td);
+    return tr;
+}
+
+function countingSort(arr)
+{
+    let i, z = 0, count = [];
+
+    for (i = 0; i <= 100; i++) {
+        count[i] = 0;
+    }
+
+    for (i=0; i < arr.length; i++) {
+        count[arr[i]]++;
+    }
+
+    for (i = 0; i <= 100; i++) {
+        while (count[i]-- > 0) {
+            arr[z++] = i;
+        }
+    }
+    return arr;
+}
+
+function loadHighScore() {
+    localStorage.getItem("highscores");
+}
+
+function saveHighScore(highscores) {
+    localStorage.setItem("highscores", highscores);
 }
