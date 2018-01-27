@@ -8,7 +8,7 @@ Installasjonsguide:
 5. Høyreklikk på `Retrieve_lost_gold_remastered.html`, velg *åpne i* og velg *Google Chrome* nettleseren. <br>
 Når du har lastet inn siden vil du kunne spille selv om internettet forsvinner.
 
-<b>OBS! Andre nettlesere er ikke nødvendigvis støttet, men skal fungere helt fint</b>
+<b>OBS! Andre nettlesere er ikke nødvendigvis støttet, men skal fungere helt fint.</b>
 
 Retrieve the gold er et spill som ble laget på videregående i forbindelse med utdanning.
 Da jeg tilegnet mer kunnskap innen webteknologi og oppdaget at nye teknologier innen css, javascript
