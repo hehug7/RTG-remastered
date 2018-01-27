@@ -13,12 +13,9 @@
         TODO oppdaterer scoren om samme navn blir registrert
 
     Powerups
-        TODO Legge til random powerup
+        TODO Legge til random powerup (hvit - alle farger)
         Velger random en funksjon fra de andre
         TODO legger til en lydsfx for hver powerup
-
-    Implementere liv?
-        ha 3 liv
 
     On completion
         TODO UNLOCKABLES: lage en rainbow colored circle(coin)
@@ -30,10 +27,11 @@
             ++
 
     FIXING:
-        TODO fjerne høyreklikk
         TODO fikse powerup text
-        TODO fikse onclick to start (not on the text)
-        TODO overlapping med obstacle og mus
+        TODO fikse onclick to start (not on the text) (?)
+        TODO fikse avslutt spill slik at powerups ikke spawner etter slutt
+        TODO Fikse css
+        TODO fikse at obstacle forsvinner eller skifter farge når du berører det
     Fikse overlapping med powerups, obstacle og coins (z-index)
 
     gmap:
@@ -79,7 +77,7 @@ let winScore = 100;
 let antLives = document.getElementById("antLives");
 let amountOfLives = 3;
 let lives;
-let livesColors = ["red", "red", "orange", "yellow"];
+let livesColors = ["red", "orange", "yellow", "black"];
 
 // Radius
 let obstacleRadius = 50;
@@ -93,6 +91,9 @@ let powerUpArray = [];
 let powerUpTypes = ["small", "big", "bonus", "loss", "change"];
 let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
 let powerUpSpawner;
+
+// highscore
+let highscores = [];
 
 // Audio elements
 let sfx = true;
@@ -148,6 +149,9 @@ function initGame() {
 function exitGame() {
     // Vis titler
     titles.setAttribute("class", "show");
+
+    // Reset lives color
+    antLives.parentNode.style.color = livesColors[livesColors.length-1];
 
     // reseter mappet
     gMap.innerHTML = "";
@@ -226,33 +230,6 @@ function addAndUpdateScore(amount) {
     }
 }
 
-regBtn.onclick = function(event) {
-    event.preventDefault();
-
-    let name = nickInp.value;
-
-    if (name.length === 0 || "Skriv et navn" === name ) {
-        name = "Skriv et navn";
-        return;
-    }
-
-    if(isDuplicateName(name)) {
-        return;
-    }
-
-    // Lager highscore rad for navn og score
-    let tr = document.createElement("tr");
-    let td = document.createElement("td");
-    td.innerHTML = name;
-    tr.appendChild(td);
-
-    td = document.createElement("td");
-    td.innerHTML = antCoins.innerHTML;
-    tr.appendChild(td);
-
-    tbody.appendChild(tr);
-};
-
 // Lager powerups utifra lister som inneholder ulike farger og typer
 function createPowerUps() {
     for (let i = 0; i < powerUpTypes.length; i++) {
@@ -319,7 +296,7 @@ function activatePowerUp(evt) {
 }
 
 function createCoin() {
-    coin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    let coin = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     coin.addEventListener("mouseover", coinTouched);
     coin.setAttribute("id", "coin");
     coin.setAttribute("fill", "yellow");
@@ -451,7 +428,65 @@ function loseLife() {
     antLives.innerHTML = lives;
 }
 
-function updateHighscore() {
+regBtn.onclick = function(event) {
+    event.preventDefault();
 
+    let name = nickInp.value;
 
+    if (name.length === 0 || "Skriv et navn" === name ) {
+        name = "Skriv et navn";
+        return;
+    }
+
+    if(isDuplicateName(name)) {
+        return;
+    }
+
+    // Lager highscore rad for navn og score
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+    td.innerHTML = name;
+    tr.appendChild(td);
+
+    td = document.createElement("td");
+    td.innerHTML = antCoins.innerHTML;
+    tr.appendChild(td);
+
+    //tbody.appendChild(tr);
+
+    updateHighscore(tr);
+};
+
+function updateHighscore(tr) {
+
+    let sortedList = [];
+
+    for (let elem in highscores) {
+        sortedList.push(elem)
+    }
+
+    sortedList.push(tr);
+
+    tbody.innerHTML = "";
+    highscores = [];
+    for (let i = 0; i < sortedList.length; i++) {
+        let maxElem = sortedList[findMaxIdx(sortedList)];
+        highscores.push(maxElem);
+        tbody.appendChild(maxElem);
+    }
+}
+
+function findMaxIdx(list) {
+    let max = -1;
+    let idx = -1;
+
+    for (let i = 0; i < list.length; i++) {
+        let cur = parseInt(list[i].children[1].innerHTML);
+        if (cur > max) {
+            max = cur;
+            idx = i;
+        }
+    }
+
+    return idx;
 }
