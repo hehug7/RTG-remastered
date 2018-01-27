@@ -6,10 +6,8 @@
     Etabler spillgrid 20 * 20 ? /50/100
 
     Highscoretabell
-        TODO Countingsort for highscoretabell
         TODO mulighet til å lagre highscore lokalt
         Localstorage
-        TODO oppdater scoren på highscorelista when someone submits
         TODO oppdaterer scoren om samme navn blir registrert
 
     Powerups
@@ -235,14 +233,28 @@ function toggleMusic(musicBtn) {
 }
 
 /**
- * Sjekker om navnet som registreres eksisterer i highscoretabellen.
+ * Oppdaterer poengsummen dersom den er større enn den registrerte
+ * for duplikatnavn
+ * @param name
+ * @param amountC (antall coins)
+ * @returns {boolean}
+ */
+function updateDuplicateName(name, amountC) {
+    for (let i = 0; i < highscores.length; i++) {
+        if (highscores[i][0] === name && highscores[i][1] < amountC) {
+            highscores[i][1] = amountC;
+        }
+    }
+}
+
+/**
+ * Returnerer hvorvidt navnet allerede er registrert
  * @param name
  * @returns {boolean}
  */
 function isDuplicateName(name) {
-    let tdArr = document.getElementsByTagName("td");
-    for (let i = 0; i < tdArr.length; i++) {
-        if (tdArr[i].innerHTML === name) {
+    for (let i = 0; i < highscores.length; i++) {
+        if (highscores[i][0] === name) {
             return true;
         }
     }
@@ -484,26 +496,29 @@ regBtn.onclick = function(event) {
         return;
     }
 
+    highscoreRegistered = true;
+
     let name = nickInp.value;
+    let amountC = antCoins.innerHTML;
+
+    nickInp.value = "";
 
     if (name.length === 0 || "Skriv et navn" === name ) {
         name = "Skriv et navn";
         return;
     }
 
-    if(isDuplicateName(name)) {
+    if (isDuplicateName(name)) {
+        updateDuplicateName(name, amountC);
+        sortHighscore(highscores);
         return;
     }
 
     // Lager highscore rad for navn og score
-    let tr = createRow(name, antCoins.innerHTML);
+    let tr = createRow(name, amountC);
 
     tbody.appendChild(tr);
-    highscores.push([name, antCoins.innerHTML]);
-
-    nickInp.value = "";
-
-    highscoreRegistered = true;
+    highscores.push([name, amountC]);
 
     sortHighscore(highscores);
 };
@@ -572,26 +587,6 @@ function createRow(td1, td2) {
     td.innerHTML = td2;
     tr.appendChild(td);
     return tr;
-}
-
-function countingSort(arr)
-{
-    let i, z = 0, count = [];
-
-    for (i = 0; i <= 100; i++) {
-        count[i] = 0;
-    }
-
-    for (i=0; i < arr.length; i++) {
-        count[arr[i]]++;
-    }
-
-    for (i = 0; i <= 100; i++) {
-        while (count[i]-- > 0) {
-            arr[z++] = i;
-        }
-    }
-    return arr;
 }
 
 function loadHighScore() {
