@@ -1,21 +1,19 @@
 # RTG_remastered
 
-Hvordan spille spillet:
-1. Last ned zip filen under "clone or download"
-2. Gå inn i zip filen uten å pakke den ut.
-3. Gå inn i `template` mappen. Der vil du se eldre versjoner av det gamle spillet og det nye.
-4. For å spille nyeste versjon: dobbelklikk på `Retrieve_lost_gold_remastered.html`
-5. Sørg for at denne åpnes av *google chrome*
-6. Dette gjør du ved å høyreklikke og åpne i => chrome.
+Installasjonsguide:
+1. Trykk på den grønne knappen "clone or download".
+2. Trykk deretter på "Download ZIP".
+3. Finn zip filen og pakk den ut. Kan være du må bruke program som "winRAR" til å gjøre dette.
+4. Gå inn i mappen `RTG_remastered` og videre inn i `template` mappen.
+5. Marker filen og klikk deretter høyreklikk og *åpne i* og velg *Google Chrome* nettleseren;
 Når du har lastet inn siden vil du kunne spille selv om internettet forsvinner.
 
 Retrieve the gold er et spill som ble laget på videregående i forbindelse med utdanning.
 Da jeg tilegnet mer kunnskap innen webteknologi og oppdaget at nye teknologier innen css, javascript
-og html dukket opp, bestemte jeg meg for å lage en remastered versjon av det gamle spillet.
+og html dukket opp, bestemte jeg meg for å lage en forbedret versjon av det gamle spillet.
 
 Retrieve the gold innebærer at du skal samle mynter med musa. Målet er å skaffe 100 mynter.
-
-Målet med prosjektet er å lage et fritidsspill som du kan spille på pc selv om du mister internettet etter å ha lastet siden en gang.
+Det er en egen instruksmanual på siden om hvordan du spiller.
 
 Disclaimer:
 
