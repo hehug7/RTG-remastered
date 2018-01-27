@@ -82,12 +82,12 @@ let coinRadius = 17;
 
 // PowerUp Spawn Interval
 let pusi = 5;
+let powerUpInterval;
 
-// powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink]
+// powerups [0: green, : blue, 2: orange, 3: red, 4: pink]
 let powerUpArray = [];
 let powerUpTypes = ["small", "big", "bonus", "loss", "change"];
 let powerUpColors = ["#37FF00", "#1100FF" ,"#FF8D00", "#FF0000", "#F400E8"];
-let powerUpSpawner;
 
 // highscore
 let highscores = [];
@@ -140,8 +140,8 @@ function initGame() {
         createCoin();
     }
 
-    // Spawn powerup (pusi is in seconds)
-    powerUpSpawner = setInterval(spawnPowerUp, pusi*1000);
+    // Spawn powerup (PowerUpSpawnerInterval (pusi) is in seconds)
+    powerUpInterval = setInterval(spawnPowerUp, pusi*1000);
 
     // Audio
     stopAudio(gameOverSound);
@@ -164,7 +164,7 @@ function exitGame() {
     gMap.innerHTML = "";
 
     //Slutter å spawne powerups
-    clearInterval(powerUpSpawner);
+    clearInterval(powerUpInterval);
 
     // Audio
     if (sfx && mode === 1) {
@@ -204,8 +204,9 @@ function startGame() {
 map.onclick = startGame;
 title1.onclick = startGame;
 title2.onclick = startGame;
-
 map.onmouseleave = exitGame;
+
+loadHighScore();
 
 /**
  * Togglebutton for å skru av og på SFX
