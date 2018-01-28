@@ -515,7 +515,9 @@ function stopAudio(elem) {
  */
 function loseLife() {
 
-    playAudio(loseLifeSound);
+    if (sfx) {
+        playAudio(loseLifeSound);
+    }
 
     lives--;
 
