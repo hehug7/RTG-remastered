@@ -11,10 +11,7 @@
             ++
 
     FIXING:
-        TODO fikse powerup text (litt uklart hva det betydde)
-        TODO fikse onclick to start (not on the text) (?)
         TODO fikse at obstacle forsvinner eller skifter farge når du berører det
-        TODO fikse slik at music og SFX knapp legger seg til høyre i containeren
  */
 
 /* gamemodes:
@@ -47,6 +44,7 @@ const nickInp = document.getElementById("nickInp");
 
 // Status
 const antCoins = document.getElementById("antCoins");
+const powerUpFeedBackSpn = document.getElementById("powerUpFeedBackSpn");
 
 let collectedCoins = 0;
 let winScore = 100;
@@ -99,6 +97,10 @@ function initGame() {
 
     // resets map
     gMap.innerHTML = "";
+
+    // Reseter feedback
+    powerUpFeedBackSpn.innerHTML = "";
+    console.log("resetter feedback");
 
     // Reset radius
     obstacleRadius = 50;
@@ -317,18 +319,23 @@ function activatePowerUp(evt) {
     switch(idx) {
         case 0:
             obstacleRadius -= 3;
+            powerUpFeedBackSpn.innerHTML = "Firkantene har blitt mindre!";
             break;
         case 1:
             coinRadius += 2;
+            powerUpFeedBackSpn.innerHTML = "Mynten har blitt større!";
             break;
         case 2:
             addAndUpdateScore(5);
+            powerUpFeedBackSpn.innerHTML = "La til fem mynter!";
             break;
         case 3:
             addAndUpdateScore(-7);
+            powerUpFeedBackSpn.innerHTML = "Du mistet syv mynter!";
             break;
         case 4:
             changeCoinPos(evt);
+            powerUpFeedBackSpn.innerHTML = "Endret posisjonen til mynten!";
             break;
     }
 

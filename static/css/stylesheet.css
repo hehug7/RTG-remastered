@@ -230,6 +230,7 @@ table tr td, h3 {
     max-width: 2.5em;
     min-height: 2.5em;
     width: 2.5em;
+    outline: 0.5px solid black;
 }
 
 .blue {
@@ -250,4 +251,18 @@ table tr td, h3 {
 
 .green {
     background: #37FF00;
+}
+
+.white {
+    background: #FFF;
+}
+
+/* Meny for feedback */
+
+#powerUpFeedBackSpn {
+    height: 1em;
+    display: block;
+    text-align: center;
+    color: #FFF;
+    padding-top: 0.2em;
 }
