@@ -275,7 +275,6 @@ function createPowerUps() {
  * Setter tilfeldig type og tilsvarende farge med gitte attributter
  */
 function spawnPowerUp() {
-	console.log(canSpawnPowerUp);
 	if (canSpawnPowerUp) {
 		let powerUpType = Math.floor((Math.random() * powerUpTypes.length));
 		let powerUp = powerUpArray[powerUpType];
@@ -283,7 +282,6 @@ function spawnPowerUp() {
 		let yPos = getRandomPos(13);
 		
 		if (powerUp.name === "change"){
-			console.log("is false");
 			canSpawnPowerUp = false;
 		};
 
