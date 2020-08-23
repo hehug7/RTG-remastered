@@ -62,6 +62,7 @@ let coinRadius = 17;
 // PowerUp Spawn Interval
 const pusi = 6;
 let powerUpInterval;
+let canSpawnPowerUp = true;
 
 // powerups [0: green, 1: blue, 2: orange, 3: red, 4: pink, 5: white]
 let powerUpArray = [];
@@ -100,7 +101,6 @@ function initGame() {
 
     // Reseter feedback
     powerUpFeedBackSpn.innerHTML = "";
-    console.log("resetter feedback");
 
     // Reset radius
     obstacleRadius = 50;
@@ -275,23 +275,31 @@ function createPowerUps() {
  * Setter tilfeldig type og tilsvarende farge med gitte attributter
  */
 function spawnPowerUp() {
-    let powerUpType = Math.floor((Math.random() * powerUpTypes.length));
-    let powerUp = powerUpArray[powerUpType];
-    let xPos = getRandomPos(13);
-    let yPos = getRandomPos(13);
+	console.log(canSpawnPowerUp);
+	if (canSpawnPowerUp) {
+		let powerUpType = Math.floor((Math.random() * powerUpTypes.length));
+		let powerUp = powerUpArray[powerUpType];
+		let xPos = getRandomPos(13);
+		let yPos = getRandomPos(13);
+		
+		if (powerUp.name === "change"){
+			console.log("is false");
+			canSpawnPowerUp = false;
+		};
 
-    // Create poweruprect
-    let pur = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    pur.addEventListener("mouseover", activatePowerUp);
-    pur.setAttribute("x", xPos);
-    pur.setAttribute("y", yPos);
-    pur.setAttribute("fill", powerUp.color);
-    pur.setAttribute("height", "25");
-    pur.setAttribute("width", "25");
-    pur.setAttribute("stroke-width", "3");
-    pur.setAttribute("stroke", "#000000");
-    gMap.appendChild(pur);
-
+		// Create poweruprect
+		let pur = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+		pur.addEventListener("mouseover", activatePowerUp);
+		pur.setAttribute("x", xPos);
+		pur.setAttribute("y", yPos);
+		pur.setAttribute("fill", powerUp.color);
+		pur.setAttribute("height", "25");
+		pur.setAttribute("width", "25");
+		pur.setAttribute("stroke-width", "3");
+		pur.setAttribute("stroke", "#000000");
+		gMap.appendChild(pur);
+		gMap.appendChild(pur);
+	}
 }
 
 /**
@@ -390,6 +398,7 @@ function coinTouched(evt) {
     if (sfx) {
         playAudio(coinSound);
     }
+	canSpawnPowerUp = true;
 }
 
 /**
